@@ -8,13 +8,19 @@ from .models import Movie, Genre, Video
 
 @api_view(['GET'])
 def movie_list(request):
-    movies = get_list_or_404(Movie)
-    serializer = MovieListSerializer(movies, many=True)
-    return Response(serializer.data)
+    # movies = get_list_or_404(Movie)
+    # serializer = MovieListSerializer(movies, many=True)
+    data = {
+        'text': '성공'
+    }
+    return Response(data)
 
 
 @api_view(['GET'])
 def movie_detail(request, movie_pk):
-    movie = get_object_or_404(Movie, pk=movie_pk)
-    serializer = MovieSerializer(movie)
-    return Response(serializer.data)
+    # movie = get_object_or_404(Movie, pk=movie_pk)
+    # serializer = MovieSerializer(movie)
+    data = {
+        'text': '성공'
+    }
+    return Response(data)
