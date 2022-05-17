@@ -5,6 +5,7 @@ class Genre(models.Model):
     name = models.CharField(max_length=50)
 
 class Video(models.Model):
+    
     youtube_key = models.TextField()
 
 class Movie(models.Model):
