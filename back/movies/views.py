@@ -11,7 +11,7 @@ def movie_list(request):
     # movies = get_list_or_404(Movie)
     # serializer = MovieListSerializer(movies, many=True)
     data = {
-        'text': '성공'
+        'text': '성공?!'
     }
     return Response(data)
 
