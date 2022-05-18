@@ -42,7 +42,8 @@ INSTALLED_APPS = [
 
     'dj_rest_auth',
     'dj_rest_auth.registration',
-    'allauth',
+
+    'allauth', 
     'allauth.account',
     'allauth.socialaccount',
 
@@ -150,7 +151,7 @@ CORS_ALLOWED_ORIGINS =[
 AUTH_USER_MODEL = 'accounts.User'
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTEHNTICATION_CLASSES': [
+    'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
     ],
 
