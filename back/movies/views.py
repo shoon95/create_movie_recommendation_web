@@ -4,7 +4,7 @@ from rest_framework.decorators import api_view
 from django.shortcuts import get_list_or_404, get_object_or_404
 from .serializers import MovieListSerializer, MovieDetailSerializer, MovieSearchSerializer
 from .models import Movie, Genre, Video
-
+import requests
 
 @api_view(['GET'])
 def movie_detail(request, movie_pk):
