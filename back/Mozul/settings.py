@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
 
     'corsheaders',
-    'django.contrib.sites', # dj-rest-auth-signup 필요
+    'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -56,7 +56,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
 SITE_ID = 1
+
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
