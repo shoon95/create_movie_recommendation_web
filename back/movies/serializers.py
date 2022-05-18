@@ -2,28 +2,37 @@ from rest_framework import serializers
 from .models import Movie, Genre, Video 
 
 
-class MovieListSerializer(serializers.ModelSerializer):
+class MovieSearchSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Movie
-        fields = ('title','overview',)
+        fields = ('title',)
 
+class GenreSerializer(serializers.ModelSerializer):
 
-class MovieSerializer(serializers.ModelSerializer):
-    class GenreSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Genre
+        fields = ('name', )
 
-        class Meta:
-            model = Genre
-            fields = ('name', )
-
+class MovieDetailSerializer(serializers.ModelSerializer):
+    
     class VideoSerializer(serializers.ModelSerializer):
 
         class Meta:
             model = Video
-            fields = ('key', )
+            fields = ('youtube_key', )
 
     genres = GenreSerializer(many=True, read_only=True)
     videos = VideoSerializer(read_only=True)
+
+    class Meta:
+        model = Movie
+        fields = ('__all__')
+
+
+class MovieListSerializer(serializers.ModelSerializer):
+    
+    genres = GenreSerializer(many=True, read_only=True)
 
     class Meta:
         model = Movie
