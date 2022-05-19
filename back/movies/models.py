@@ -7,6 +7,9 @@ class Genre(models.Model):
 class Actor(models.Model):
     name = models.CharField(max_length=100)
     profile_path = models.CharField(max_length=200)
+
+class Video(models.Model):
+    youtube_key = models.TextField()
     
 class Movie(models.Model):
     title = models.CharField(max_length=100)
@@ -19,11 +22,9 @@ class Movie(models.Model):
     genres = models.ManyToManyField(Genre)
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_movies')
     actors = models.ManyToManyField(Actor)
-
+    videos = models.ForeignKey(Video, models.CASCADE)
     def __str__(self):
         return self.title
 
-class Video(models.Model):
-    movie = models.ForeignKey(Movie, models.CASCADE)
-    youtube_key = models.TextField()
+
 

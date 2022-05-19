@@ -2,8 +2,9 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    # path('actors/', views.actor_list),
-    # path('actors/<int:actor_pk>/', views.actor_detail),
-    # path('', views.movie_list),
-    # path('<int:movie_pk>/', views.movie_detail),
+    path('', views.movie_list, name='movie_list'),
+    path('<int:movie_pk>/', views.movie_detail, name='movie_detail'),
+    path('get_data/', views.get_data, name='get_data'),
+    path('now_playing/', views.now_playing, name='now_playing'),
+    path('<str:query>/', views.show_movies, name='show_movies'),
 ]
