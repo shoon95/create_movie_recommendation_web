@@ -4,13 +4,13 @@
 
 
 
-### CardCarousel
+### CardCarousel ( 프로필 무비 카드 )
 
 * https://codepen.io/yudizsolutions/details/wvzrPoj
 
 
 
-### Movie reco
+### Movie reco (  Home 최신 영화 )
 
 * https://codepen.io/dev_loop/pen/MWKbJmO
 
