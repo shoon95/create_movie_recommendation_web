@@ -1,6 +1,13 @@
 <template>
   <div>
-    <input class="form-control" type="text" :value="query" @input="changeQuery">
+    <button class="btn btn-primary" @click="handle_toggle">
+      찾기
+    </button>
+
+    <div v-show="is_show">
+      <input class="form-control" type="text" :value="query" @input="changeQuery">
+    </div>
+    
     <!-- <SearchBarItem v-for=" movie in showMovies " :key="movie.id" :movie="movie"/> -->
   </div>
 </template>
@@ -19,6 +26,7 @@ export default {
   data () {
     return {
       query: '',
+      is_show: false
     }
   },
   computed: {
@@ -32,7 +40,9 @@ export default {
       if (this.query.length !== 0) {
         this.showMovie(this.query)
       }
-      
+    },
+    handle_toggle: function () {
+      this.is_show = !this.is_show
     }
   }
 }
