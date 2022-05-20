@@ -3,6 +3,7 @@ const HOST = 'http://localhost:8000/api/v1/'
 const ACCOUNTS = 'accounts/'
 const MOVIES = 'movies/'
 const COMMUNITY = 'community/'
+const COMMENTS = 'comments/'
 
 export default {
   accounts: {

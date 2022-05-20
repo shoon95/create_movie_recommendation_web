@@ -1,13 +1,15 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import store from '@/store'
+// import store from '@/store'
 
 import LoginView from '@/views/LoginView.vue'
-import LogoutView from '@/views/LogoutView.vue'
 import CommunityView from '@/views/CommunityView.vue'
 import ProfileView from '@/views/ProfileView.vue'
 import MovieDetailView from '@/views/MovieDetailView.vue'
 import NotFound404 from '@/views/NotFound404.vue'
+import ReviewDetailView from '@/views/ReviewDetailView.vue'
+import ReviewNewView from '@/views/ReviewNewView.vue'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -16,16 +18,7 @@ const routes = [
     name: 'login',
     component: LoginView
   },
-  {
-    path:'/',
-    name: 'logout',
-    component: LogoutView
-  },
-  {
-    path:'/',
-    name: 'signup',
-    component: SignupView
-  },
+
   {
     path: '/profile/:username',
     name: 'profile',
