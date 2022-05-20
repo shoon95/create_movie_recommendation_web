@@ -14,7 +14,7 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path:'/',
+    path:'/login',
     name: 'login',
     component: LoginView
   },
@@ -25,7 +25,7 @@ const routes = [
     component: ProfileView,
   },
   {
-    path: '/community',  // Home
+    path: '/',  // Home
     name: 'community',
     component: CommunityView,
   },
@@ -60,5 +60,9 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+
+// router.beforeEach((to, from, next) => {
+  
+// })
 
 export default router
