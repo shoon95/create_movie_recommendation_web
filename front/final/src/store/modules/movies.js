@@ -1,37 +1,39 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+// import Vue from 'vue'
+// import Vuex from 'vuex'
 import axios from 'axios'
-// import drf from '@/api/drf'
+import drf from '@/api/drf'
 // import router from '@/router'
 
-Vue.use(Vuex)
+// Vue.use(Vuex)
 
-export default new Vuex.Store({
+export default ({
   state: {
     movies: [],
-
+    showMovies: '',
   },
   getters: {
+    showMovies (state) {
+      if (state.showMovies.length !== 0) {
+        return state.showMovies
+      }
+      
+    } 
   },
   mutations: {
-    GET_MOVIES (state, movie) {
-      state.movies = movie.results.filter(item => item.overview)
+    SHOW_MOVIE (state, showmovies) {
+      state.showMovies = showmovies
     }
   },
   actions: {
-    async getMovies ({commit}) {
-      const url = 'https://api.themoviedb.org/3/movie/popular'
- 
-      const params = {
-        'api_key' : '3108335d58371831522e2e99a0a78b38',
-        'language' : 'ko',
-      }
-      const res = await axios.get(
-        url, {
-          params: params,
-        } 
-      )
-      commit('GET_MOVIES', res.data)
+    // 검색 키워드 입력 시 영화 목록 가져오기
+    async showMovie ({commit}, query) {
+      console.log(query)
+      const res = await axios({
+        url: drf.movies.showMovies(query),
+        method: 'get',
+      })
+      commit('SHOW_MOVIE',res.data )
+      console.log(res)
     }
   },
   modules: {

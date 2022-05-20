@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <nav>
-      <!-- <router-link to="/">Home</router-link> | -->
+
+      <router-link to="community/">Community</router-link> |
       <router-link to="/">Login</router-link>
     </nav>
     <router-view/>
@@ -13,9 +14,6 @@
   export default {
     name: 'App',
 
-    created() {
-      this.$store.dispatch('getMovies')
-    }
   }
   
 </script>
