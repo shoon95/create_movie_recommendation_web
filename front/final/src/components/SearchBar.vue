@@ -29,7 +29,7 @@
             
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="searchBack">Close</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="selectMovie">검색</button>
             <button type="button" class="btn btn-primary" @click="searchBack">뒤로</button>
           </div>
         </div>
@@ -87,8 +87,7 @@ export default {
       this.showMovie(this.query)
     },
     selectMovie () {
-      this.$store.dispatch('selectMovie', this.movie)
-      // $router.push()
+      this.$router.push({name:'movie', params:{moviePk:`${this.movie.id}`}})
     }
 
 

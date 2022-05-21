@@ -75,7 +75,7 @@ export default ({
          url: drf.movies.movie(movie.id),
          method: 'get',
        })
-       commit('SELECT_MOVIE', res.data)
+       commit('SELECT_MOVIE', res.data[0])
     }
   },
   modules: {
