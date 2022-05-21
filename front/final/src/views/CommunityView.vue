@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import SearchBar from '@/components/SearchBar.vue'
+import SearchBar from '@/components/search/SearchBar.vue'
 export default {
   name: 'CommunityView',
   components: {

@@ -2,6 +2,7 @@
 // import Vuex from 'vuex'
 import axios from 'axios'
 import drf from '@/api/drf'
+import _ from 'lodash'
 // import router from '@/router'
 
 // Vue.use(Vuex)
@@ -9,8 +10,8 @@ import drf from '@/api/drf'
 export default ({
   state: {
     movies: [],
-    showMovies: '',
-    movieDetail:'',
+    showMovies: {},
+    movieDetail: {},
   },
   getters: {
     showMovies (state) {
@@ -19,8 +20,12 @@ export default ({
       }
     },
     movieDetail (state) {
+
+      console.log(4)
       return state.movieDetail
-    } 
+    },
+
+    isMovie: state => !_.isEmpty(state.movieDetail) 
   },
   mutations: {
     SHOW_MOVIE (state, showmovies) {
@@ -45,7 +50,9 @@ export default ({
     },
     SELECT_MOVIE (state, movie) {
       state.movieDetail = movie
-      console.log(state.movieDetail)
+      console.log(3)
+      console.log(movie)
+      
     }
   },
   actions: {
@@ -71,11 +78,13 @@ export default ({
     },
 
     async selectMovie({commit}, movie) {
-       const res = await axios({
-         url: drf.movies.movie(movie.id),
-         method: 'get',
-       })
-       commit('SELECT_MOVIE', res.data[0])
+      console.log(2)
+      const res = await axios({
+        url: drf.movies.movie(movie),
+        method: 'get',
+      })
+
+      commit('SELECT_MOVIE', res.data[0])
     }
   },
   modules: {
