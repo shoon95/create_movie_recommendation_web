@@ -22,8 +22,10 @@ def get_data(request):
         'id','name'
     ]
     for genre in genre_list['genres']:
-       Genre.objects.create(**genre)
-    
+        try:
+            Genre.objects.create(**genre)
+        except:
+            continue
     ### 영화 데이터 가져오기
 
     name = [

@@ -31,8 +31,15 @@ class MovieDetailSerializer(serializers.ModelSerializer):
 
 
 class MovieListSerializer(serializers.ModelSerializer):
+
+    class VideoSerializer(serializers.ModelSerializer):
+
+        class Meta:
+            model = Video
+            fields = ('youtube_key', )
     
     genres = GenreSerializer(many=True, read_only=True)
+    videos = VideoSerializer(read_only=True)
 
     class Meta:
         model = Movie
