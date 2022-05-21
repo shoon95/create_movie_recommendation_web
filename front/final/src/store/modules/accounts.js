@@ -37,11 +37,11 @@ export default {
       localStorage.setItem('token', '')
     },
 
-    signup({ commit, dispatch }, signupCredentials) {
+    signup({ commit, dispatch }, Credentials) {
       axios({
         url: drf.accounts.signup(),
         method: 'post',
-        data: signupCredentials,
+        data: Credentials,
       })
       .then(res => {
         const token = res.data.key
