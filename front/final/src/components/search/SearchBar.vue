@@ -24,12 +24,12 @@
             <div v-if="is_show_movie">
               <img class="img-size" :src="`https://www.themoviedb.org/t/p/w300_and_h450_bestv2/${ movie.poster_path }`" alt="">
               {{ movie.title }}
-              <button @click="selectMovie">검색</button>
+              <button @click="selectMovieItem">검색</button>
             </div>
             
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="selectMovie">검색</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="selectMovieItem">검색</button>
             <button type="button" class="btn btn-primary" @click="searchBack">뒤로</button>
           </div>
         </div>
@@ -42,7 +42,7 @@
 <script>
 import {mapActions} from 'vuex'
 import { mapGetters } from 'vuex'
-import SearchBarItem from '@/components/SearchBarItem.vue'
+import SearchBarItem from '@/components/search/SearchBarItem.vue'
 
 export default {
   name: 'SearchBar',
@@ -86,7 +86,7 @@ export default {
       this.query = ''
       this.showMovie(this.query)
     },
-    selectMovie () {
+    selectMovieItem () {
       this.$router.push({name:'movie', params:{moviePk:`${this.movie.id}`}})
     }
 
