@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div class="center">
 
   <div class="card">
@@ -405,4 +405,4 @@ html, body {
 
 
 
-</style>
+</style> -->
