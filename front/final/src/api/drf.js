@@ -26,5 +26,6 @@ export default {
     comments: reviewPk => HOST + COMMUNITY + `${reviewPk}/` + COMMENTS,
     comment: (reviewPk, commentPk) =>
       HOST + COMMUNITY + `${reviewPk}/` + COMMENTS + `${commentPk}/`,
+    movieReview: moviePk => HOST + COMMUNITY + `movie/${moviePk}/`,
   }
 }

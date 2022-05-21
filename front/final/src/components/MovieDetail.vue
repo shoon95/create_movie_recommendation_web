@@ -1,8 +1,6 @@
 <template>
-  <div class="ratio ratio-16x9">
+  <div class="ratio ratio-16x9 video">
     <iframe :src="src" frameborder="0"></iframe>
-    <!-- {{ src }} -->
-    {{ moviePk }}
   </div>
 </template>
 
@@ -11,6 +9,7 @@ import { mapActions } from 'vuex'
 import {mapGetters} from 'vuex'
 export default {
   name: 'MovieDetail',
+
   data () {
     return {
       moviePk: this.$route.params.moviePk
@@ -33,5 +32,8 @@ export default {
 </script>
 
 <style>
-
+  .video {
+    height: 30rem;
+    width: 100%;
+  }
 </style>

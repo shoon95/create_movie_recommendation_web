@@ -14,7 +14,7 @@ def review_list_or_create(request):
 
     def review_list():
         reviews = Review.objects.annotate(
-            comment_count=Count('comments', distinct=True),
+            # comment_count=Count('comments', distinct=True),
             like_count=Count('like_users', distinct=True)
         ).order_by('-pk')
         serializer = ReviewListSerializer(reviews, many=True)
@@ -30,6 +30,16 @@ def review_list_or_create(request):
         return review_list()
     elif request.method == 'POST':
         return create_review()
+
+
+@api_view(['GET']) 
+def reviews_of_movie (request, movie_pk):
+    reviews = Review.objects.filter(movie_id=movie_pk).annotate(
+            # comment_count=Count('comments', distinct=True),
+            like_count=Count('like_users', distinct=True)
+        ).order_by('-pk')
+    serializer = ReviewListSerializer(reviews, many=True)
+    return Response(serializer.data)
 
 
 @api_view(['GET', 'PUT', 'DELETE'])

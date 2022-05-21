@@ -78,7 +78,6 @@ export default ({
     },
 
     async selectMovie({commit}, movie) {
-      console.log(2)
       const res = await axios({
         url: drf.movies.movie(movie),
         method: 'get',
