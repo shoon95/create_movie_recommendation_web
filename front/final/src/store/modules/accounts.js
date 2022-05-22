@@ -21,7 +21,7 @@ export default {
 
   mutations: {
     SET_TOKEN: (state, token) => state.token = token,
-    SET_CURRENT_USER: (state, user) => state.user = user,
+    SET_CURRENT_USER: (state, user) => state.currentUser = user,
     SET_PROFILE: (state, profile) => state.profile = profile,
     SET_AUTH_ERROR: (state, error) => state.authError = error,
   },
@@ -82,7 +82,7 @@ export default {
           const token = res.data.key
           dispatch('saveToken', token)
           dispatch('fetchCurrentUser')
-          router.push({ name: 'community' })
+          router.back()
         })
         .catch(err => {
           commit('SET_AUTH_ERROR', err.response.data)

@@ -1,15 +1,16 @@
 <template>
   <div>
-    <SearchBar />
+    <CommunityMovie />
+    
   </div>
 </template>
 
 <script>
-import SearchBar from '@/components/search/SearchBar.vue'
+  import CommunityMovie from '@/components/CommunityMovie.vue'
 export default {
   name: 'CommunityView',
   components: {
-    SearchBar,
+    CommunityMovie
   }
 }
 </script>

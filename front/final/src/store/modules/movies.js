@@ -3,6 +3,7 @@
 import axios from 'axios'
 import drf from '@/api/drf'
 import _ from 'lodash'
+import router from '@/router'
 // import router from '@/router'
 
 // Vue.use(Vuex)
@@ -12,6 +13,7 @@ export default ({
     movies: [],
     showMovies: {},
     movieDetail: {},
+    isLike: ''
   },
   getters: {
     showMovies (state) {
@@ -21,11 +23,11 @@ export default ({
     },
     movieDetail (state) {
 
-      console.log(4)
       return state.movieDetail
     },
-
-    isMovie: state => !_.isEmpty(state.movieDetail) 
+    isMovie: state => !_.isEmpty(state.movieDetail),
+    
+    isLike: state => state.isLike
   },
   mutations: {
     SHOW_MOVIE (state, showmovies) {
@@ -34,25 +36,35 @@ export default ({
       }
       state.showMovies = showmovies
     },
+
     CHANGE_TRUE (state, movie) {
       const idx = state.showMovies.indexOf(movie)
       const item = state.showMovies[idx]
       item.isMouseover = true
       state.showMovies.splice(idx,1,item)
-
     },
+
     CHANGE_FALSE (state, movie) {
       const idx = state.showMovies.indexOf(movie)
       const item = state.showMovies[idx]
       item.isMouseover = false
       state.showMovies.splice(idx,1,item)
-
     },
+
     SELECT_MOVIE (state, movie) {
       state.movieDetail = movie
-      console.log(3)
-      console.log(movie)
-      
+    },
+    
+    RESET_DETAIL (state) {
+      state.movieDetail = {}
+    },
+
+    SHOW_LIKE (state, bool) {
+      state.isLike= bool
+    },
+
+    CHANGE_IS_LIKE (state, data) {
+      state.isLike = data.like
     }
   },
   actions: {
@@ -84,8 +96,55 @@ export default ({
       })
 
       commit('SELECT_MOVIE', res.data[0])
-    }
-  },
+    },
+
+    resetDetail({commit}) {
+      commit('RESET_DETAIL')
+    },
+
+    showLike({commit,getters}) {
+      if (getters.isLoggedIn) {
+        var flag = 0
+        for( let i of getters.movieDetail.like_users ) {
+          if ( i === getters.currentUser.pk) {
+            flag = 1
+            break
+          }
+        }
+        if (flag) {
+          commit ('SHOW_LIKE', true)
+        } else {
+          commit ('SHOW_LIKE', false)
+        }
+      } else {
+          commit('SHOW_LIKE', false)
+        }
+      },
+
+    async changeIsLike ({commit,getters, dispatch}, moviePk) {
+      if (getters.isLoggedIn) {
+        const res = await axios ({
+          url: drf.movies.likeMovie(moviePk),
+          method: 'post',
+          headers: getters.authHeader,
+        })
+        .catch(err => {
+          if (err.response.status === 401) {
+            dispatch('removeToken')
+            router.push({ name: 'login' })
+          }
+        })
+        commit('CHANGE_IS_LIKE', res.data)
+      } else {
+        if (confirm('로그인이 필요한 기능입니다. 로그인하시겠습니까?')){
+          router.push({name: 'login'})
+        }
+      }
+    },
+      
+
+    },
+
   modules: {
   }
 })

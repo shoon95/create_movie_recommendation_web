@@ -1,23 +1,33 @@
 <template>
   <div id="app">
     <nav>
-      <router-link to="/">Community</router-link> |
-      <router-link to="login/">Login</router-link> |
-      <router-link to="movies/1/">MovieDetail</router-link> |
-      <router-link to="404/">NotFound404</router-link> |
-      <router-link to="profile/admin/">Profile</router-link> |
-      <router-link to="review/1/">ReviewDetail</router-link> |
-      <router-link to="review/new/">ReviewNew</router-link> |
+      <SearchBar />
+      <router-link :to="{name:'community'}">Community</router-link> |
+      <router-link :to="{name:'login'}">Login</router-link> |
+      <router-link :to="{name:'movie',params:{moviePk:1}}">MovieDetail</router-link> |
+      <router-link :to="{name:'NotFound404'}">NotFound404</router-link> |
+      <router-link :to="{name: 'profile', params:{username:'sjhty123@naver.com'}}">Profile</router-link> |
+      <router-link :to="{name: 'review', params:{reviewPk:1}}">ReviewDetail</router-link> |
+      <router-link :to="{name: 'reviewNew'}">ReviewNew</router-link> |
     </nav>
     <router-view/>
   </div>
 </template>
 
 <script>
-  // import { mapActions } from 'vuex'
+  import { mapActions } from 'vuex'
+  import SearchBar from '@/components/search/SearchBar.vue'
   export default {
     name: 'App',
-
+    components: {
+      SearchBar
+    },
+    methods: {
+      ...mapActions(['fetchCurrentUser']),
+    },
+    created () {
+      this.fetchCurrentUser()
+    }
   }
   
 </script>
