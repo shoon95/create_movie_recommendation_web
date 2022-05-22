@@ -12,6 +12,7 @@ export default {
     signup: () => HOST + ACCOUNTS + 'signup/',
     currentUserInfo: () => HOST + ACCOUNTS + 'user/',
     profile: username => HOST + ACCOUNTS + 'profile/' + username,
+    follow: userPk => HOST + ACCOUNTS + userPk + 'follow/',
   },
   movies: {
     movies: () => HOST + MOVIES,

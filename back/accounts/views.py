@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import ProfileSerializer
+from django.http import JsonResponse, HttpResponse
 
 User = get_user_model()
 
@@ -11,3 +12,26 @@ def profile(request, username):
     user = get_object_or_404(User, username=username)
     serializer = ProfileSerializer(user)
     return Response(serializer.data)
+
+
+@api_view(['POST'])
+def follow(request, user_pk):
+    if request.user.is_authenticated:
+        person = get_object_or_404(User, pk=user_pk)
+        user = request.user
+        if person != user:
+            if person.followers.filter(pk=user.pk).exists():
+                person.followers.remove(user)
+                follow = False
+            else:
+                person.followers.add(user)
+                follow =True
+            
+            follow_data = {
+                'follow':follow,
+                'followers_count':person.followers.count(),
+                'followings_count':person.followings.count(),
+            }
+            print(follow_data)
+        return JsonResponse(follow_data)
+    return HttpResponse(status=401)

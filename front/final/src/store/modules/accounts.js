@@ -8,6 +8,8 @@ export default {
     token: localStorage.getItem('token') || '',
     currentUser: {},
     profile: {},
+    followers: [],
+    followings: [],
     authError: null,
   },
 
@@ -15,6 +17,8 @@ export default {
     isLoggedIn: state => !!state.token,
     currentUser: state => state.currentUser,
     profile: state => state.profile,
+    followers: state => state.followers,
+    followings: state => state.followings,
     authError: state => state.authError,
     authHeader: state => ({Authorization: `Token ${state.token}`}),
   },
@@ -23,6 +27,8 @@ export default {
     SET_TOKEN: (state, token) => state.token = token,
     SET_CURRENT_USER: (state, user) => state.currentUser = user,
     SET_PROFILE: (state, profile) => state.profile = profile,
+    SET_FOLLOWERS: (state, followers) => state.followers = followers,
+    SET_FOLLOWINGS: (state, followings) => state.followings = followings,    
     SET_AUTH_ERROR: (state, error) => state.authError = error,
   },
 

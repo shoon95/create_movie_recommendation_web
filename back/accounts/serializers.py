@@ -3,13 +3,15 @@ from django.contrib.auth import get_user_model
 from movies.models import Movie
 from community.models import Review
 
+User = get_user_model()
+
 class ProfileSerializer(serializers.ModelSerializer):
 
-    class ReviewSerializer(serializers.ModelSerializer):
+    # class ReviewSerializer(serializers.ModelSerializer):
         
-        class Meta:
-            model = Review
-            fields = ('pk', 'title')
+    #     class Meta:
+    #         model = Review
+    #         fields = ('pk', 'title', )
 
     # class MovieSerializer(serializers.ModelSerializer):
 
@@ -22,4 +24,4 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = get_user_model()
-        fields = ('pk', 'username',)
+        fields = ('pk', 'username', 'profile_img', 'followings', 'followers', )

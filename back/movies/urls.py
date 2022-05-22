@@ -1,5 +1,7 @@
 from django.urls import path
 from . import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.movie_list, name='movie_list'),
@@ -8,4 +10,4 @@ urlpatterns = [
     path('now_playing/', views.now_playing, name='now_playing'),
     path('<int:movie_pk>/like/', views.like_movie),
     path('<str:query>/', views.show_movies, name='show_movies'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
