@@ -217,3 +217,19 @@ def movie_list(request):
     movies = Movie.objects.all()
     serializer = MovieListSerializer(movies, many=True)
     return Response (serializer.data)
+
+@api_view(['POST'])
+def like_movie(request, movie_pk):
+    movie = get_object_or_404(Movie, pk=movie_pk)
+    user = request.user
+    if movie.like_users.filter(pk=user.pk).exists():
+        movie.like_users.remove(user)
+        like = False
+        
+    else:
+        movie.like_users.add(user)
+        like = True
+    context = {
+        'like': like
+    }
+    return Response(context)
