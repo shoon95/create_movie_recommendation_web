@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <nav>
-      <SearchBar />
+    <nav class="bg-light d-flex">
+      <NavBar />
       <router-link :to="{name:'community'}">Community</router-link> |
       <router-link :to="{name:'login'}">Login</router-link> |
       <router-link :to="{name:'movie',params:{moviePk:1}}">MovieDetail</router-link> |
@@ -16,11 +16,11 @@
 
 <script>
   import { mapActions } from 'vuex'
-  import SearchBar from '@/components/search/SearchBar.vue'
+  import NavBar from '@/components/NavBar.vue'
   export default {
     name: 'App',
     components: {
-      SearchBar
+      NavBar
     },
     methods: {
       ...mapActions(['fetchCurrentUser']),
@@ -36,10 +36,6 @@
 #app {
   text-align: center;
 
-}
-
-nav {
-  padding: 30px;
 }
 
 nav a {

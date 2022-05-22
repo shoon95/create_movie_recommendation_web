@@ -129,7 +129,7 @@ export default ({
           headers: getters.authHeader,
         })
         .catch(err => {
-          if (err.response.status === 401) {
+          if (err) {
             dispatch('removeToken')
             router.push({ name: 'login' })
           }

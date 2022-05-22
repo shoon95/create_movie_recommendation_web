@@ -1,6 +1,6 @@
 <template>
     <!-- <SearchBarItem v-for=" movie in showMovies " :key="movie.id" :movie="movie"/> -->
-  <div>
+  <div >
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" @click="openModal">
       Launch demo modal
