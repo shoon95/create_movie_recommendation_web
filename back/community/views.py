@@ -41,7 +41,7 @@ def reviews_of_movie (request, movie_pk):
     serializer = ReviewListSerializer(reviews, many=True)
     return Response(serializer.data)
 
-
+ 
 @api_view(['GET', 'PUT', 'DELETE'])
 def review_detail_or_update_or_delete(request, review_pk):
     review = get_object_or_404(Review, pk=review_pk)

@@ -1,5 +1,5 @@
 <template>
-  <div class="col">
+  <div class="col col-6 col-lg-3">
     <main class="page-content">
       <div class="card" :style="{backgroundImage:src}">
         <div class="content">

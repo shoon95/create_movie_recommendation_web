@@ -27,7 +27,7 @@ export default {
   }},
 
   computed: {
-    ...mapGetters(['isMovie']),
+    ...mapGetters(['isMovie','movieDetail']),
   },
   created () {  
     this.$store.dispatch('selectMovie', this.moviePk)

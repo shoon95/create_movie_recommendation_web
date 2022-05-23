@@ -1,14 +1,14 @@
 <template>
   <div id="app">
-    <nav class="bg-light d-flex">
+    <nav class="bg-light sticky-top">
       <NavBar />
-      <router-link :to="{name:'community'}">Community</router-link> |
+      <!-- <router-link :to="{name:'community'}">Community</router-link> |
       <router-link :to="{name:'login'}">Login</router-link> |
       <router-link :to="{name:'movie',params:{moviePk:1}}">MovieDetail</router-link> |
       <router-link :to="{name:'NotFound404'}">NotFound404</router-link> |
       <router-link :to="{name: 'profile', params:{username:'admin'}}">Profile</router-link> |
       <router-link :to="{name: 'review', params:{reviewPk:1}}">ReviewDetail</router-link> |
-      <router-link :to="{name: 'reviewNew'}">ReviewNew</router-link> |
+      <router-link :to="{name: 'reviewNew'}">ReviewNew</router-link> | -->
     </nav>
     <router-view/>
   </div>
@@ -23,12 +23,15 @@
       NavBar
     },
     methods: {
-      ...mapActions(['fetchCurrentUser']),
+      ...mapActions(['fetchCurrentUser', 'getGenreList','getMovies']),
     },
     created () {
       this.fetchCurrentUser()
+      this.getGenreList()
+      this.getMovies()
     }
   }
+
   
 </script>
 

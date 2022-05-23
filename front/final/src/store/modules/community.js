@@ -1,5 +1,6 @@
 import axios from 'axios'
 import drf from '@/api/drf'
+import _ from 'lodash'
 // import router from '@/router'
 
 
@@ -15,18 +16,37 @@ export default {
   },
 
   mutations: {
-    GET_MOVIE_REVIEWS(state, movies) {
-      state.movieReviews = movies
+    GET_MOVIE_REVIEWS (state, reviews) {
+      state.movieReviews = reviews
+    },
+
+    GET_MOVIES_REVIEWS (state, movies) {
+      state.movieReviews = []
+      for ( let movie of movies ) {
+        if ( !_.isEmpty(movie.reviews) ){
+          for ( let review of movie.reviews ) {
+            state.movieReviews.push(review)
+          }
+        }
+      }
+
     }
   },
 
   actions: {
-    async getMovieReviews ({commit}, movie_id) {
+    async getMovieReviews ({commit}, movie) {
+
       const res = await axios({
-        url: drf.community.movieReview(movie_id),
+        url: drf.community.movieReview(movie),
         method: 'get',
       })
+      
       commit('GET_MOVIE_REVIEWS', res.data)
+    },
+
+    getMoviesReviews ({commit}, movies ) {
+      commit('GET_MOVIES_REVIEWS', movies)
     }
   },
+
 }

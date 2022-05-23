@@ -23,9 +23,7 @@
       </div>
     </div>
     <div>
-      <form @submit.prevent="logout()">
-        <button>Logout</button>
-      </form>
+
     </div>
   </div>
 </template>

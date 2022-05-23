@@ -2,7 +2,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from django.shortcuts import get_list_or_404, get_object_or_404
-from .serializers import MovieListSerializer, MovieDetailSerializer, MovieSearchSerializer
+from .serializers import GenreListSerializer, MovieListSerializer, MovieDetailSerializer, MovieSearchSerializer
 from .models import Movie, Genre, Video, Actor
 import requests
 
@@ -214,8 +214,15 @@ def now_playing(request):
 
 @api_view(['GET'])
 def movie_list(request):
-    movies = Movie.objects.all()
-    serializer = MovieListSerializer(movies, many=True)
+    if request.GET == {} :
+        movies = Movie.objects.all()[0:10]
+        serializer = MovieListSerializer(movies, many=True)
+    else:
+        genres = request.GET
+        requestGenres = genres.getlist('genres[]')
+        movies = Movie.objects.filter(genres__in=requestGenres)
+        movies = list (set(movies))[0:10]
+        serializer = MovieListSerializer(movies, many=True)
     return Response (serializer.data)
 
 @api_view(['POST'])
@@ -233,3 +240,9 @@ def like_movie(request, movie_pk):
         'like': like
     }
     return Response(context)
+
+@api_view(['GET'])
+def get_genres(request):
+    genres = Genre.objects.all()
+    serializer = GenreListSerializer(genres, many=True)
+    return Response (serializer.data)

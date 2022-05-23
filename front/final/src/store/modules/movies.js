@@ -13,21 +13,30 @@ export default ({
     movies: [],
     showMovies: {},
     movieDetail: {},
-    isLike: ''
+    isLike: '',
+    genreItems: [],
+    selectedGenres: [],
   },
   getters: {
+
+    movies: state => state.movies,
+    isMovies: state => !_.isEmpty(state.movies),
     showMovies (state) {
       if (state.showMovies.length !== 0) {
         return state.showMovies
       }
     },
+    
     movieDetail (state) {
 
       return state.movieDetail
     },
-    isMovie: state => !_.isEmpty(state.movieDetail),
     
-    isLike: state => state.isLike
+    isMovie: state => !_.isEmpty(state.movieDetail),
+    isLike: state => state.isLike,
+    genreItems: state => state.genreItems,
+    selectedGenres: state => state.selectedGenres
+
   },
   mutations: {
     SHOW_MOVIE (state, showmovies) {
@@ -60,11 +69,35 @@ export default ({
     },
 
     SHOW_LIKE (state, bool) {
-      state.isLike= bool
+      state.isLike = bool
     },
 
     CHANGE_IS_LIKE (state, data) {
       state.isLike = data.like
+    },
+
+    GET_GENRE_LIST (state, data) {
+      for( let i=0; i < data.length; i++){
+        data[i]['isSelected'] = false
+      }
+      state.genreItems = data
+
+    },
+    UPDATE_GENRE (state, data) {
+      const idx = state.genreItems.indexOf(data)
+      const item = state.genreItems[idx]
+      item.isSelected = !item.isSelected
+      if ( item.isSelected ) {
+        state.selectedGenres.push(item.id)
+      } else {
+        const idx1 = state.selectedGenres.indexOf(item)
+        state.selectedGenres.splice(idx1,1)
+      }
+      state.genreItems.splice(idx,1,item)
+    },
+
+    GET_MOVIES (state, data) {
+      state.movies = data
     }
   },
   actions: {
@@ -141,9 +174,43 @@ export default ({
         }
       }
     },
+
+    async getGenreList ({commit}) {
+      const res = await axios ({
+        url: drf.movies.genres(),
+        method: 'get',
+      })
+
+      commit('GET_GENRE_LIST', res.data)
+    },
+
+    updateGenre({commit}, genre) {
+      commit('UPDATE_GENRE', genre) 
+    },
+
+    async getMovies ({commit}, data) {
+      if (data) {
+        const res = await axios ({
+          url: drf.movies.movies(),
+          method: 'get',
+          params: {
+            genres: data
+          }
+        })
+        commit('GET_MOVIES', res.data)
+
+      } else {
+        const res = await axios ({
+          url: drf.movies.movies(),
+          method: 'get',
+        })
+        commit('GET_MOVIES', res.data)
+      }
+      
+    }
       
 
-    },
+  },
 
   modules: {
   }

@@ -19,6 +19,7 @@ export default {
     showMovies: query => HOST + MOVIES + `${query}/`,
     movie: moviePk => HOST + MOVIES + `${moviePk}/`,
     likeMovie: moviePk => HOST + MOVIES + `${moviePk}/` + 'like/',
+    genres: () => HOST + MOVIES + 'genres/'
   },
   community: {
     community: () => HOST + COMMUNITY,
