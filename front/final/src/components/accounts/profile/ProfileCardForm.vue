@@ -37,6 +37,7 @@ import { mapActions } from 'vuex'
         newProfile: {
           nickname: this.profile.nickname,
           introduce: this.profile.introduce,
+          profile_img: this.profile.profile_img
         }
       }
     },
