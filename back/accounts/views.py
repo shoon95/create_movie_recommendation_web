@@ -4,6 +4,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import ProfileSerializer
 from django.http import JsonResponse, HttpResponse
+from django.core.files import File
 
 User = get_user_model()
 
@@ -35,3 +36,10 @@ def follow(request, user_pk):
             print(follow_data)
         return JsonResponse(follow_data)
     return HttpResponse(status=401)
+
+
+@api_view(['GET'])
+def img(request, user_pk):
+    user = User.objects.get(pk=1)
+    user.profile_img.save('박상훈.jpg', File(open('C:/Users/sjhty/Desktop/박상훈.jpg','rb')))
+    return Response({'data':'성공'})

@@ -5,7 +5,9 @@
         <div class="content">
           <h4 class="title">{{ review.title }}</h4>
           <p class="copy">{{ review.content }}</p>
-          <button class="btn">View Trips</button>
+
+          <button class="btn" @click="isModalView([true, review])">Open</button>
+
         </div>
       </div>
     </main>
@@ -13,16 +15,25 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   name: 'ReviewCardListItem',
+  components: {
+
+  },
   props: {
     review: Object,
   },
   data () {
     return {
-      src: require('@/assets/imgFile.png')
+      src: require('@/assets/imgFile.png'),
+
     }
   },
+  methods: {
+    ...mapActions(['isModalView']),
+  }
   
 }
 </script>

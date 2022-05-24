@@ -63,11 +63,7 @@ export default ({
     SELECT_MOVIE (state, movie) {
       state.movieDetail = movie
     },
-    
-    RESET_DETAIL (state) {
-      state.movieDetail = {}
-    },
-
+  
     SHOW_LIKE (state, bool) {
       state.isLike = bool
     },
@@ -98,6 +94,10 @@ export default ({
 
     GET_MOVIES (state, data) {
       state.movies = data
+    },
+
+    RESET_DETAIL (state) {
+      state.movieDetail = false
     }
   },
   actions: {
@@ -129,10 +129,6 @@ export default ({
       })
 
       commit('SELECT_MOVIE', res.data[0])
-    },
-
-    resetDetail({commit}) {
-      commit('RESET_DETAIL')
     },
 
     showLike({commit,getters}) {
@@ -207,6 +203,10 @@ export default ({
         commit('GET_MOVIES', res.data)
       }
       
+    },
+
+    resetDetail ( {commit} ) {
+      commit ('RESET_DETAIL')
     }
       
 
