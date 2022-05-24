@@ -17,6 +17,7 @@ export default {
     isLoggedIn: state => !!state.token,
     currentUser: state => state.currentUser,
     profile: state => state.profile,
+    isAuthor: state => state.currentUser.username === state.profile.username,
     followers: state => state.followers,
     followings: state => state.followings,
     authError: state => state.authError,
@@ -116,6 +117,27 @@ export default {
         .then(res => {
           commit('SET_PROFILE', res.data)
         })
+    },
+
+    editProfile({ commit, getters }, { username, nickname, introduce, profile_img }) {
+      console.log({ username, nickname, introduce, profile_img })
+      axios({
+        url: drf.accounts.edit_profile(username),
+        method: 'put',
+        data: { nickname, introduce, profile_img },
+        headers: getters.authHeader,
+      })
+        .then(res => {
+          console.log(res)
+          commit('SET_PROFILE', res.data)
+          router.push({
+            name: 'profile',
+            params: { username: getters.profile.username }
+          })
+        })
+          .catch(err => {
+            console.log(err)
+          })
     }
   },
 }

@@ -7,6 +7,14 @@ User = get_user_model()
 
 class ProfileSerializer(serializers.ModelSerializer):
 
+
+    class Meta:
+        model = User
+        fields = ('pk', 'username', 'nickname', 'profile_img', 'followings', 'followers', 'introduce',)
+        read_only_fields = ('username', 'followings')
+
+
+
     # class ReviewSerializer(serializers.ModelSerializer):
         
     #     class Meta:
@@ -21,7 +29,3 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     # like_movie = MovieSerializer(many=True)
     # movie = MovieSerializer(many=True)
-
-    class Meta:
-        model = get_user_model()
-        fields = ('pk', 'username', 'profile_img', 'followings', 'followers', )

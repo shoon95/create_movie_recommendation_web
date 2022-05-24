@@ -6,7 +6,7 @@
     </div>
     <div class="m-2 d-flex align-items-center" >
       <div class="d-flex" v-if="isLoggedIn">
-        <router-link class="profile" :to="{name:'profile', params: {username: currentUser.username}}" tag="img" :src="src"></router-link>
+        <router-link class="profile" :to="{name:'profile', params: {username: currentUser.username}}" tag="img"></router-link>
         <h2 class="logout" @click="logout">logout</h2>
       </div>
       <div v-else>
@@ -24,7 +24,7 @@ export default {
   name: "NavBar",
   data () {
     return {
-      src: require('../../../../back/media/박상훈.jpg')
+      // src: require('../../../../back/media/4.jpg')
     }
   },
   components: {

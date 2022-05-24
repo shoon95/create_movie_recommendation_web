@@ -5,6 +5,7 @@ import VueRouter from 'vue-router'
 import LoginView from '@/views/LoginView.vue'
 import CommunityView from '@/views/CommunityView.vue'
 import ProfileView from '@/views/ProfileView.vue'
+import ProfileEditView from '@/views/ProfileEditView.vue'
 // import MovieDetailView from '@/views/MovieDetailView.vue'
 import NotFound404 from '@/views/NotFound404.vue'
 import ReviewDetailView from '@/views/ReviewDetailView.vue'
@@ -18,11 +19,15 @@ const routes = [
     name: 'login',
     component: LoginView
   },
-
   {
     path: '/profile/:username',
     name: 'profile',
     component: ProfileView,
+  },
+  {
+    path: '/profile/:username/edit',
+    name: 'profileEdit',
+    component: ProfileEditView,
   },
   {
     path: '/',  // Home

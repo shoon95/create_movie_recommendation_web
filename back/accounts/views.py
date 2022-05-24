@@ -4,6 +4,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import ProfileSerializer
 from django.http import JsonResponse, HttpResponse
+from django.http import QueryDict
 
 User = get_user_model()
 
@@ -12,6 +13,18 @@ def profile(request, username):
     user = get_object_or_404(User, username=username)
     serializer = ProfileSerializer(user)
     return Response(serializer.data)
+
+
+@api_view(['PUT'])
+def edit_profile(request, username):
+    user = get_object_or_404(User, username=username)
+    if request.user == user:
+        rd = QueryDict('', mutable=True)
+        rd.update(request.data)
+        serializer = ProfileSerializer(user, data=rd)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(serializer.data)
 
 
 @api_view(['POST'])
