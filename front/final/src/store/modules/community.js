@@ -6,13 +6,17 @@ import _ from 'lodash'
 
 export default {
   state: {
-    movieReviews: {}
+    movieReviews: {},
+    isModalViewed: false,
+    review: ''
   },
 
   getters: {
     movieReviews (state) {
       return state.movieReviews
-    }
+    },
+    isModalViewed: state => state.isModalViewed,
+    review: state => state.review
   },
 
   mutations: {
@@ -29,8 +33,12 @@ export default {
           }
         }
       }
-
-    }
+    },
+    
+    IS_MODAL_VIEW ( state, data) {
+      state.isModalViewed = data[0]
+      state.review = data[1]
+    },
   },
 
   actions: {
@@ -46,7 +54,17 @@ export default {
 
     getMoviesReviews ({commit}, movies ) {
       commit('GET_MOVIES_REVIEWS', movies)
-    }
+    },
+
+    async isModalView ({commit}, data ) {
+      
+      const res =await axios({
+        url: drf.community.review(data[1].id),
+        method: 'get',
+      })
+
+      commit('IS_MODAL_VIEW', [data[0], res.data])
+    } 
   },
 
 }

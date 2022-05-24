@@ -23,6 +23,7 @@ export default {
     width: 97px;
     border: solid 1px;
     border-radius: 20px;
+    line-height: 30px;
   }
   .notSelected {
     background-color: rgba(255, 255, 255, 0.7);

@@ -47,6 +47,10 @@ def review_detail_or_update_or_delete(request, review_pk):
     review = get_object_or_404(Review, pk=review_pk)
 
     def review_detail():
+        reviews = Review.objects.filter(pk=review_pk).annotate(
+            # comment_count=Count('comments', distinct=True),
+            like_count=Count('like_users', distinct=True)
+        ).order_by('-pk')
         serializer = ReviewSerializer(review)
         return Response(serializer.data)
 

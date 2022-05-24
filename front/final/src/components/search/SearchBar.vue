@@ -46,7 +46,6 @@ export default {
     },
     
     selectMovieItem () {
-      console.log(this.query)
       if ( !_.isEmpty(this.showMovies) ) {
         for ( let i of this.showMovies) {
           if (this.query === i.title) {

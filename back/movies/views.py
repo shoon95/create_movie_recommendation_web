@@ -215,7 +215,7 @@ def now_playing(request):
 @api_view(['GET'])
 def movie_list(request):
     if request.GET == {} :
-        movies = Movie.objects.all()[0:10]
+        movies =get_list_or_404(Movie)[0:10]
         serializer = MovieListSerializer(movies, many=True)
     else:
         genres = request.GET
