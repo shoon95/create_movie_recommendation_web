@@ -21,6 +21,7 @@ def review_list_or_create(request):
         return Response(serializer.data)
     
     def create_review():
+        print(request.data)
         serializer = ReviewSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
             print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
