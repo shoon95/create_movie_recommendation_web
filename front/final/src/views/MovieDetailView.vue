@@ -6,7 +6,7 @@
         <ReviewDetailView />
       </ModalView>
     </div>
-    <div class="container">
+    <div >
       <ReviewCardList />
     </div>
     
@@ -50,9 +50,6 @@ export default {
 
   watch: {
     $route(to, from) {
-      console.log(to)
-      console.log(to.params.moviePk)
-      console.log(from)
       if (to.path != from.path) {
         this.$store.dispatch('resetDetail')
         this.$store.dispatch('selectMovie', to.params.moviePk)

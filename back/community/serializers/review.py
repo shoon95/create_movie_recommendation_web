@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 
-from ..models import Review
+from ..models import Review, Comment
 from .comment import CommentSerializer
 
 User = get_user_model()
@@ -13,15 +13,23 @@ class ReviewSerializer(serializers.ModelSerializer):
         class Meta:
             model = User
             fields = ('pk', 'username', 'profile_img',)
+            depth=1
 
-    comments = CommentSerializer(many=True, read_only=True)
+    class CommentSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = Comment
+            fields = ('__all__')
+            # depth = 1
+
+    comment_set = CommentSerializer(many=True, read_only=True)
     user = UserSerializer(read_only=True)
     like_users = UserSerializer(read_only=True, many=True)
     like_count = serializers.IntegerField()
 
     class Meta:
         model = Review
-        fields = ('pk', 'user', 'title', 'content', 'comments','like_count', 'like_users','created_at', 'updated_at')
+        fields = ('pk', 'user', 'title', 'content', 'comment_set','like_count', 'like_users','created_at', 'updated_at')
+        
 
 
 class ReviewListSerializer(serializers.ModelSerializer):
@@ -30,13 +38,19 @@ class ReviewListSerializer(serializers.ModelSerializer):
             model = User
             fields = ('pk','username','profile_img')
             
+    class CommentSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = Comment
+            fields = ('__all__')
+            depth = 1
 
+    comment_set = CommentSerializer(many=True, read_only=True)
     user = UserSerializer(read_only=True)
     # comment_count = serializers.IntegerField()
     like_count = serializers.IntegerField()
 
     class Meta:
         model = Review
-        fields = ('pk', 'user', 'title',  'like_count','content', 'created_at', 'updated_at')
-        depth = 1
+        fields = ('__all__')
+        # depth = 1
 # 'comment_count',

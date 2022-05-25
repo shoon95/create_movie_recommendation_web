@@ -38,6 +38,7 @@
 <style>
 #app {
   text-align: center;
+  font-family: 'Nanum Myeongjo', serif;
 
 }
 

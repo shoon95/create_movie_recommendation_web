@@ -6,7 +6,8 @@
     </div>
     <div class="m-2 d-flex align-items-center" >
       <div class="d-flex" v-if="isLoggedIn">
-        <router-link class="profile" :to="{name:'profile', params: {username: currentUser.username}}" tag="img"></router-link>
+        <router-link class="profile" :to="{name:'profile', params: {username: currentUser.username}}" 
+        ><img :src="`http://127.0.0.1:8000${ currentUser.profile_img }`" alt=""></router-link>
         <h2 class="logout" @click="logout">logout</h2>
       </div>
       <div v-else>
@@ -51,4 +52,8 @@ export default {
     height: 45px;
     border-radius: 45px;
   }
+/* 
+  #title {
+    font-size: 100px;
+  } */
 </style>

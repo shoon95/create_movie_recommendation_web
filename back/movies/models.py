@@ -23,6 +23,8 @@ class Movie(models.Model):
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_movies')
     actors = models.ManyToManyField(Actor)
     videos = models.ForeignKey(Video, models.CASCADE)
+    backdrop_path = models.CharField(max_length=200)
+    
     def __str__(self):
         return self.title
 

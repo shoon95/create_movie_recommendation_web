@@ -22,6 +22,7 @@ export default {
     followings: state => state.followings,
     authError: state => state.authError,
     authHeader: state => ({Authorization: `Token ${state.token}`}),
+    
   },
 
   mutations: {

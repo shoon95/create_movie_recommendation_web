@@ -17,6 +17,7 @@ def profile(request, username):
 
 @api_view(['PUT'])
 def edit_profile(request, username):
+    print(123123)
     user = get_object_or_404(User, username=username)
     if request.user == user:
         rd = QueryDict('', mutable=True)

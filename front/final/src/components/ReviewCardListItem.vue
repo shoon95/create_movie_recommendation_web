@@ -10,6 +10,17 @@
 
         </div>
       </div>
+      <div class="d-flex justify-content-between sub align-items-center">
+        <div class="ms-3">
+          <router-link  :to="{name:'profile', params: {username: review.user.username}}" 
+        ><img :src="`http://127.0.0.1:8000${ review.user.profile_img }`" class="under" alt=""></router-link>
+          {{ review.user.username }}
+        </div>
+        <div class="me-3" >
+          <p class="m-0">{{ review.like_users.length }}</p>
+        </div>
+      </div>
+      
     </main>
   </div>
 </template>
@@ -39,7 +50,21 @@ export default {
 </script>
 
 <style scoped>
-
+/* .likes {
+  line-height: 50px;
+} */
+.sub {
+  height:50px;
+  background-color:rgba(248, 245, 245, 0.938);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), 0 2px 2px rgba(0, 0, 0, 0.1), 0 4px 4px rgba(0, 0, 0, 0.1), 0 8px 8px rgba(0, 0, 0, 0.1), 0 16px 16px rgba(0, 0, 0, 0.1);
+}
+.under {
+  width: 35px;
+  height: 35px;
+  border-radius: 30px;
+  margin-top:5px;
+  margin-bottom:5px;
+}
 @import url("https://fonts.googleapis.com/css?family=Cardo:400i|Rubik:400,700&display=swap");
 :root {
   --d: 700ms;
@@ -65,6 +90,7 @@ body {
   max-width: 1024px;
   margin: 0 auto;
   font-family: var(--font-sans);
+
 }
 @media (min-width: 600px) {
   .page-content {
@@ -84,6 +110,7 @@ body {
   text-align: center;
   color: whitesmoke;
   background-color: whitesmoke;
+  border-radius: 12px 12px 0px 0px;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), 0 2px 2px rgba(0, 0, 0, 0.1), 0 4px 4px rgba(0, 0, 0, 0.1), 0 8px 8px rgba(0, 0, 0, 0.1), 0 16px 16px rgba(0, 0, 0, 0.1);
 }
 @media (min-width: 600px) {

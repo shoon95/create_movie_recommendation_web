@@ -2,6 +2,7 @@
   <div class="modale">
     <div class="overlay"  @click="isModalView(false)"></div>
     <div class="modal-card shadow-lg">
+      
       <slot/>
     </div>
   </div>

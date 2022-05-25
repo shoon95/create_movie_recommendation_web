@@ -29,7 +29,7 @@ def get_data(request):
     ### 영화 데이터 가져오기
 
     name = [
-        'id','title','release_date','popularity','vote_count','vote_average','overview','poster_path'
+        'id','title','release_date','popularity','vote_count','vote_average','overview','poster_path','backdrop_path',
     ]
 
     for page in range(1,3):
@@ -215,13 +215,13 @@ def now_playing(request):
 @api_view(['GET'])
 def movie_list(request):
     if request.GET == {} :
-        movies =get_list_or_404(Movie)[0:10]
+        movies =get_list_or_404(Movie)[0:3]
         serializer = MovieListSerializer(movies, many=True)
     else:
         genres = request.GET
         requestGenres = genres.getlist('genres[]')
         movies = Movie.objects.filter(genres__in=requestGenres)
-        movies = list (set(movies))[0:10]
+        movies = list (set(movies))[0:3]
         serializer = MovieListSerializer(movies, many=True)
     return Response (serializer.data)
 
