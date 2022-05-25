@@ -7,40 +7,58 @@ import router from '@/router'
 
 export default {
   state: {
-    review: [],
-    reviews: {},
+    tmpReviews: [],
+    tmpReview: {},
   },
 
   getters: {
-    reviews: state => state.reviews,
-    review: state => state.review,
-    isAuthor: (state, getters) => {
-      return state.review.user?.username === getters.currentUser.username
-    },
-    isReview: state => !_.isEmpty(state.review),
+    tmpReviews: state => state.Reviews,
+    tmpReview: state => state.tmpReview,
+    isReview: state => !_.isEmpty(state.tmpReview),
   },
 
   mutations: {
-    SET_REVIEWS: (state, reviews) => state.reviews = reviews,
-    SET_REVIEW: (state, review) => state.review = review,
-    SET_REVIEW_COMMENTS: (state, comments) => (state.review.comments = comments),
+    SET_REVIEWS: (state, tmpReviews) => state.rmpReviews = tmpReviews,
+    SET_REVIEW: (state, tmpReview) => state.tmpReview = tmpReview,
   },
 
   actions: {
+    fetchReviews ({ commit, getters }) {
+      axios({
+        url: drf.community.community(),
+        method: 'get',
+        headers: getters.authHeader,
+      })
+        .then(res => commit('SET_REVIEWS', res.data))
+    },
+
+    fetchReview ({ commit, getters }, reviewPk) {
+      axios({
+        url: drf.community.review(reviewPk),
+        method: 'get',
+        headers: getters.authHeader,
+      })
+        .then(res => commit('SET_REVIEW', res.data))
+        .catch(err => {
+          if (err.responses.statue == 404) {
+            router.push({ name: 'NotFound404' })
+          }
+        })
+    },
     createReview({ commit, getters }, review) {
       axios({
-        url: drf.community.review(),
+        url: drf.community.community(),
         method: 'post',
         data: review,
         headers: getters.authHeader,
       })
-        .then(res => {
-          commit('SET_REVIEW', res.data)
-          router.push({
-            name: 'review',
-            params: { reviewPk: getters.review.pk }
-          })
+      .then(res => {
+        commit('SET_REVIEW', res.data)
+        router.push({
+          name: 'review',
+          params: { reviewPk: getters.tmpReview.pk }
         })
+      })
     },
 
     updateReview({ commit, getters }, { pk, title, content }) {
@@ -54,7 +72,7 @@ export default {
           commit('SET_REVIEW', res.data)
           router.push({
             name: 'review',
-            params: { reviewPk: getters.review.pk }
+            params: { reviewPk: getters.tmpReview.pk }
           })
         })
     }
