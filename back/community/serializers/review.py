@@ -12,16 +12,16 @@ class ReviewSerializer(serializers.ModelSerializer):
     class UserSerializer(serializers.ModelSerializer):
         class Meta:
             model = User
-            fields = ('pk', 'username', 'profile_img',)
+            fields = ('__all__')
 
     comments = CommentSerializer(many=True, read_only=True)
     user = UserSerializer(read_only=True)
     like_users = UserSerializer(read_only=True, many=True)
-    like_count = serializers.IntegerField()
 
     class Meta:
         model = Review
-        fields = ('pk', 'user', 'title', 'content', 'comments','like_count', 'like_users','created_at', 'updated_at')
+        fields = ('pk', 'user', 'title', 'content', 'comments', 'like_users','created_at', 'updated_at')
+        # read_only_fields = ('like_count', '')
 
 
 class ReviewListSerializer(serializers.ModelSerializer):
