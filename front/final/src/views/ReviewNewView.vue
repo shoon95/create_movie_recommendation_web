@@ -1,13 +1,14 @@
 <template>
   <div>
     <h1>New Review</h1>
-    <review-form :review="review"></review-form>
+    <review-form :review="review" action="create"></review-form>
   </div>
 </template>
 
 <script>
 import ReviewForm from '@/components/ReviewForm.vue'
 export default {
+  name: 'ReviewNewView',
   components: { ReviewForm },
   data() {
     return {
@@ -15,6 +16,8 @@ export default {
         pk: null,
         title: '',
         content: '',
+        score: 0,
+        movie: 0
       }
     }
   }

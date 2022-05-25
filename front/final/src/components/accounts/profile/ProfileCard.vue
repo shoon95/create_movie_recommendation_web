@@ -14,6 +14,11 @@
           <button>Profile Update</button>
         </router-link>
       </div>
+      <div v-if="isAuthor">
+        <router-link :to="{ name: 'reviewNew'}">
+          <button>create review</button>
+        </router-link>
+      </div>
       <div v-if="!isAuthor">
         <button @click="followUser(username)">
         <!-- <p v-if="profile.followers.includes(currentUser.Pk)">unfollow</p>
@@ -49,7 +54,8 @@ export default {
   },
 
   created() {
-    this.fetchProfile(this.username)
+    const payload = { username: this.$route.params.username }
+    this.fetchProfile(payload)
   }
 
 }
