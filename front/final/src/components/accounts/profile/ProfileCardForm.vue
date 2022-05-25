@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form @submit.prevent="onSubmit" enctype="multipart/form-data">
+    <form @submit.prevent="onSubmit">
       <div>
         <label for="nickname">nickname: </label>
         <input v-model="newProfile.nickname" type="text" id="nickname" />
@@ -8,13 +8,6 @@
       <div>
         <label for="introduce">introduce: </label>
         <textarea v-model="newProfile.introduce" type="text" id="introduce"></textarea>
-      </div>
-      <div>
-        <input type="file" @change="onFileSelected">
-        <!-- <input type="file"> -->
-      </div>
-      <div>
-        <!-- <p>{{ newProfile.profile_img }}</p> -->
       </div>
       <div>
         <button>{{ action }}</button>
@@ -37,7 +30,6 @@ import { mapActions } from 'vuex'
         newProfile: {
           nickname: this.profile.nickname,
           introduce: this.profile.introduce,
-          profile_img: this.profile.profile_img
         }
       }
     },
@@ -53,9 +45,9 @@ import { mapActions } from 'vuex'
         this.editProfile(payload)
       },
 
-      onFileSelected (e) {
-        console.log(e)
-      }
+      // onFileSelected (e) {
+      //   console.log(e)
+      // }
     },
   }
 </script>

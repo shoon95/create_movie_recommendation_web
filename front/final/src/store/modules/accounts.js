@@ -8,8 +8,6 @@ export default {
     token: localStorage.getItem('token') || '',
     currentUser: {},
     profile: {},
-    followers: [],
-    followings: [],
     authError: null,
   },
 
@@ -18,8 +16,6 @@ export default {
     currentUser: state => state.currentUser,
     profile: state => state.profile,
     isAuthor: state => state.currentUser.username === state.profile.username,
-    followers: state => state.followers,
-    followings: state => state.followings,
     authError: state => state.authError,
     authHeader: state => ({Authorization: `Token ${state.token}`}),
     
@@ -29,8 +25,7 @@ export default {
     SET_TOKEN: (state, token) => state.token = token,
     SET_CURRENT_USER: (state, user) => state.currentUser = user,
     SET_PROFILE: (state, profile) => state.profile = profile,
-    SET_FOLLOWERS: (state, followers) => state.followers = followers,
-    SET_FOLLOWINGS: (state, followings) => state.followings = followings,    
+    SET_FOLLOWINGS: (state, currentUser) => state.profile.followings.append(currentUser),    
     SET_AUTH_ERROR: (state, error) => state.authError = error,
   },
 
@@ -120,12 +115,12 @@ export default {
         })
     },
 
-    editProfile({ commit, getters }, { username, nickname, introduce, profile_img }) {
-      console.log({ username, nickname, introduce, profile_img })
+    editProfile({ commit, getters }, { username, nickname, introduce }) {
+      console.log({ username, nickname, introduce })
       axios({
         url: drf.accounts.edit_profile(username),
         method: 'put',
-        data: { nickname, introduce, profile_img },
+        data: { nickname, introduce },
         headers: getters.authHeader,
       })
         .then(res => {
@@ -139,6 +134,17 @@ export default {
           .catch(err => {
             console.log(err)
           })
+    },
+
+    followUser({ commit, getters }, username)  {
+      console.log(username)
+      axios({
+        url: drf.accounts.follow(username),
+        method: 'post',
+        headers: getters.authHeader,
+      })
+      .then(res => commit('SET_PROFILE', res.data))
+        .catch(err => console.log(err.response))
     }
   },
 }

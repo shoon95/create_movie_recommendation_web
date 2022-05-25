@@ -23,6 +23,7 @@ def review_list_or_create(request):
     def create_review():
         serializer = ReviewSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
+            print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
             serializer.save(user=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 

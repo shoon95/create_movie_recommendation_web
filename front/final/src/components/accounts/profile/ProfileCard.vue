@@ -6,13 +6,19 @@
         </div>
       <div class="col-8 col-offset-1">
         <h1>{{ profile.nickname }}</h1>
-        <h4>followers: {{ profile.followers.length }} | followings: {{ profile.followings.length }}</h4>
+        <h4>followers: {{ followersCount }} | followings: {{ followingsCount }}</h4>
         <p>{{ profile.introduce }}</p>
       </div>
       <div v-if="isAuthor">
         <router-link :to="{ name: 'profileEdit', params: { username: profile.username } }">
           <button>Profile Update</button>
         </router-link>
+      </div>
+      <div v-if="!isAuthor">
+        <button @click="followUser(username)">
+        <!-- <p v-if="profile.followers.includes(currentUser.Pk)">unfollow</p>
+        <p v-else>follow</p> -->
+        </button>
       </div>
     </div>
   </div>
@@ -23,17 +29,27 @@ import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'ProfileCard',
+  data() {
+    return {
+      username: this.$route.params.username
+    }
+  },
   computed: {
-    ...mapGetters(['isAuthor', 'profile'])
+    ...mapGetters(['isAuthor', 'profile', 'currentUser']),
+    followersCount() {
+      return this.profile.followers?.length
+    },
+    followingsCount() {
+      return this.profile.followings?.length
+    }
   },
 
   methods: {
-    ...mapActions(['fetchProfile'])
+    ...mapActions(['fetchProfile', 'followUser'])
   },
 
   created() {
-    const payload = { username: this.$route.params.username }
-    this.fetchProfile(payload)
+    this.fetchProfile(this.username)
   }
 
 }
