@@ -215,13 +215,13 @@ def now_playing(request):
 @api_view(['GET'])
 def movie_list(request):
     if request.GET == {} :
-        movies =get_list_or_404(Movie)[0:3]
+        movies =get_list_or_404(Movie)[0:10]
         serializer = MovieListSerializer(movies, many=True)
     else:
         genres = request.GET
         requestGenres = genres.getlist('genres[]')
         movies = Movie.objects.filter(genres__in=requestGenres)
-        movies = list (set(movies))[0:3]
+        movies = list (set(movies))[0:10]
         serializer = MovieListSerializer(movies, many=True)
     return Response (serializer.data)
 

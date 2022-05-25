@@ -7,7 +7,7 @@
             <h4 class="title">새 리뷰 작성하기</h4>
             <p class="copy">리뷰란 무엇인가</p>
 
-            <button class="btn" @click="isModalView(true)">Open</button>
+            <button class="btn" @click="isModalView([true,review])">Open</button>
 
           </div>
         </div>
@@ -19,7 +19,7 @@
 
 <script>
 import ReviewCardListItem from '@/components/ReviewCardListItem.vue'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'ReviewCardList',
@@ -28,6 +28,9 @@ export default {
   },
   computed: {
     ...mapGetters(['movieReviews'])
+  },
+  methods: {
+    ...mapActions(['isModalView']),
   }
 }
 </script>
