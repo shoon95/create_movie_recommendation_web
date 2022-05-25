@@ -1,8 +1,6 @@
 import axios from 'axios'
 import drf from '@/api/drf'
-import _ from 'lodash'
 import router from '@/router'
-// import router from '@/router'
 
 
 export default {
@@ -14,7 +12,6 @@ export default {
   getters: {
     tmpReviews: state => state.Reviews,
     tmpReview: state => state.tmpReview,
-    isReview: state => !_.isEmpty(state.tmpReview),
   },
 
   mutations: {
@@ -63,7 +60,7 @@ export default {
 
     updateReview({ commit, getters }, { pk, title, content }) {
       axios({
-        url: drf.reviews.review(pk),
+        url: drf.community.review(pk),
         method: 'put',
         data: { title, content },
         headers: getters.authHeader,
@@ -75,6 +72,15 @@ export default {
             params: { reviewPk: getters.tmpReview.pk }
           })
         })
-    }
+    },
 
+    likeReview({ commit, getters }, review) {
+      console.log(review.id),
+      axios({
+        url: drf.community.likeReview(review.id),
+        method: 'post',
+        headers: getters.authHeader,
+      })
+        .then(res => commit('SET_REVIEW', res.data))
+  }
 }}

@@ -15,7 +15,8 @@
           {{ review.user.username }} <br>
           {{ review.created_at }}<br>
           {{ review.updated_at }}<br>
-          {{ review.user.nickname }}
+          {{ review.user.nickname }}<br>
+          <button @click="likeReview(review)">like {{ likeCount  }}</button>
         </div>
       </div>
     </div>
@@ -37,14 +38,26 @@ export default {
   components: {
     CommentList,
   },
+  // data() {
+  //   // return{
+  //   //   reviewPk: this.review.pk,
+  //   // }
+  // },
 
   computed: {
-
-    ...mapGetters(['comment_set','review', 'isReviewer', 'currentUser']),
+    ...mapGetters(['comment_set','review', 'isReviewer', 'currentUser', 'isAuthor']),
+    likeCount() {
+      return this.review.like_users?.length
+    }
   },
   
+  
   methods: {
-    ...mapActions(['isModalView','deleteReview'])
+    ...mapActions(['isModalView','deleteReview', 'likeReview', 'fetchReview'])
+  },
+
+  created() {
+    this.fetchReview(this.review.id)
   }
 }
 
