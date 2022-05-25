@@ -10,6 +10,7 @@ import ProfileEditView from '@/views/ProfileEditView.vue'
 import NotFound404 from '@/views/NotFound404.vue'
 import ReviewDetailView from '@/views/ReviewDetailView.vue'
 import ReviewNewView from '@/views/ReviewNewView.vue'
+import ReviewEditView from '@/views/ReviewEditView.vue'
 
 Vue.use(VueRouter)
 
@@ -43,6 +44,11 @@ const routes = [
     path: '/review/new',
     name: 'reviewNew',
     component: ReviewNewView,
+  },
+  {
+    path: '/review/:reviewPk/edit',
+    name: 'reviewEdit',
+    component: ReviewEditView,
   },
   {
     path: '/movies/:moviePk',

@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Edit Review</h1>
-    <review-form :review="review" action="create"></review-form>
+    <review-form :review="review" action="update"></review-form>
   </div>
 </template>
 

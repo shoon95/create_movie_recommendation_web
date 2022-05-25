@@ -6,8 +6,10 @@
       </aside>
       <div class="col">
         <div v-if="review.user.username===currentUser.username">
-          <button @click="[deleteReview(review), isModalView(false)]">삭제</button>
-          <button>업데이트</button>
+          <button @click="[deleteReview(review), isModalView(false)]">삭제</button> | 
+          <router-link :to="{ name: 'reviewEdit', params: { reviewPk: review } }">
+            <button>업데이트</button>
+          </router-link>
         </div>
         <h1>{{ review.title }}</h1>
         <div class="content">
@@ -38,11 +40,11 @@ export default {
   components: {
     CommentList,
   },
-  // data() {
-  //   // return{
-  //   //   reviewPk: this.review.pk,
-  //   // }
-  // },
+  data() {
+    return{
+      reviewPk: this.review.pk,
+    }
+  },
 
   computed: {
     ...mapGetters(['comment_set','review', 'isReviewer', 'currentUser', 'isAuthor']),

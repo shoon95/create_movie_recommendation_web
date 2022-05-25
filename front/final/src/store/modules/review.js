@@ -59,6 +59,8 @@ export default {
     },
 
     updateReview({ commit, getters }, { pk, title, content }) {
+    // updateReview({ commit, getters }, { review }) {
+      // console.log(review.id)
       axios({
         url: drf.community.review(pk),
         method: 'put',
