@@ -1,11 +1,10 @@
 <template>
   <div class="col col-6 col-lg-3">
     <main class="page-content">
-      <div class="card" :style="{backgroundImage:src}">
+      <div class="card" :style="{backgroundImage: `url(${`https://www.themoviedb.org/t/p/original/${review.movie.poster_path}`})`}">
         <div class="content">
-          <h4 class="title">{{ review.title }}</h4>
-          <p class="copy">{{ review.content }}</p>
-
+          <h4 class="title text-warning opacity-100">{{ review.title }}</h4>
+          <p class="copy text-warning rounded-3 p-2 opacity-100">평점: {{ review.score }}</p>
           <button class="btn" @click="isModalView([true, review])">Open</button>
 
         </div>
@@ -109,6 +108,7 @@ body {
   width: 100%;
   text-align: center;
   color: whitesmoke;
+  background-size: 100% 100%;
   background-color: whitesmoke;
   border-radius: 12px 12px 0px 0px;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), 0 2px 2px rgba(0, 0, 0, 0.1), 0 4px 4px rgba(0, 0, 0, 0.1), 0 8px 8px rgba(0, 0, 0, 0.1), 0 16px 16px rgba(0, 0, 0, 0.1);
@@ -143,9 +143,7 @@ body {
   transform: translateY(-50%);
   transition: transform calc(var(--d) * 2) var(--e);
 }
-.card:nth-child(1):before {
-  background-image: url(https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ);
-}
+
 
 
 .content {

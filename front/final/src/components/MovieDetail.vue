@@ -21,7 +21,12 @@
       <button v-if="isLike" @click="changeIsLike(moviePk)">좋아요 상태</button>
       <button v-else @click="changeIsLike(moviePk)">비좋아요 상태</button>
     </div>
-    <p class="actors"> {{ movieDetail.actors }} </p>
+    <div class="container justify-content-center d-flex" id="actors">
+      <div class="actors me-5" v-for="actor in movieDetail.actors.slice(0, 10)" :key="actor.id">
+        <img class="" :src='`https://www.themoviedb.org/t/p/original/${actor.profile_path}`' alt="">
+        <p>{{ actor.name }}</p>
+      </div>
+    </div>
     
   </div>
 
@@ -110,9 +115,13 @@ export default {
 
   li {
     float: left;
-    
-
-
   }
+
+  img {
+    width: 100px;
+    height: 150px;
+  }
+
+
 
 </style>

@@ -1,16 +1,16 @@
 <template>
   <div>
-    <form @submit.prevent="onSubmit">
+    <form @submit.prevent="onSubmit" class="mb-3">
       <div>
         <label for="nickname">nickname: </label>
-        <input v-model="newProfile.nickname" type="text" id="nickname" />
+        <input v-model="newProfile.nickname" type="text" id="nickname"/>
       </div>
-      <div>
-        <label for="introduce">introduce: </label>
+      <div class="mt-4">
+        <label class="align-top" for="introduce">introduce: </label>
         <textarea v-model="newProfile.introduce" type="text" id="introduce"></textarea>
       </div>
       <div>
-        <button>{{ action }}</button>
+        <button class="btn btn-primary">{{ action }}</button>
       </div>
     </form>
   </div>
@@ -52,4 +52,16 @@ import { mapActions } from 'vuex'
   }
 </script>
 
-<style></style>
+<style>
+input {
+  width:400px;
+  height:30px;
+  font-size:20px;
+}
+
+textarea {
+  width:400px;
+  height:100px;
+  font-size:20px;
+}
+</style>

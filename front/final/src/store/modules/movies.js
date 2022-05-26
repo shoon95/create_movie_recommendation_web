@@ -35,7 +35,7 @@ export default ({
     isMovie: state => !_.isEmpty(state.movieDetail),
     isLike: state => state.isLike,
     genreItems: state => state.genreItems,
-    selectedGenres: state => state.selectedGenres
+    selectedGenres: state => state.selectedGenres,
 
   },
   mutations: {
@@ -98,7 +98,7 @@ export default ({
 
     RESET_DETAIL (state) {
       state.movieDetail = false
-    }
+    },
   },
   actions: {
     // 검색 키워드 입력 시 영화 목록 가져오기
@@ -207,11 +207,6 @@ export default ({
 
     resetDetail ( {commit} ) {
       commit ('RESET_DETAIL')
-    }
-      
-
+    },
   },
-
-  modules: {
-  }
 })

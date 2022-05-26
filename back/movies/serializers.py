@@ -38,6 +38,7 @@ class MovieDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movie
         fields = ('__all__')
+        depth = 1
 
 
 class MovieListSerializer(serializers.ModelSerializer):

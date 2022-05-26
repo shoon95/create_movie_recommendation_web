@@ -176,7 +176,6 @@ export default {
       },
       
       fetchReview ({ commit, getters }, reviewPk) {
-        console.log('리뷰 불러옴!')
         axios({
           url: drf.community.review(reviewPk),
           method: 'get',

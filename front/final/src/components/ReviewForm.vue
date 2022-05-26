@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent="onSubmit">
-    <div>
+    <div class="mb-3">
       <label for="title">title: </label>
       <input v-model="newReview.title" type="text" id="title" />
     </div>
