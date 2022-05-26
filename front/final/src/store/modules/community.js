@@ -23,7 +23,7 @@ export default {
     review: state => state.review,
     isReview: state => !_.isEmpty(state.review),
     comment_set: state => state.review.comment_set? state.review.comment_set : '',
-    tmpReviews: state => state.Reviews,
+    tmpReviews: state => state.tmpReviews,
     tmpReview: state => state.tmpReview
   },
 
@@ -60,7 +60,7 @@ export default {
       const idx = state.movieReviews.indexOf(review)
       state.movieReviews.splice(idx,1)
     },
-    SET_REVIEWS: (state, tmpReviews) => state.rmpReviews = tmpReviews,
+    SET_REVIEWS: (state, tmpReviews) => state.tmpReviews = tmpReviews,
     SET_REVIEW: (state, tmpReview) => state.tmpReview = tmpReview,
     CREATE_REVIEW: (state, tmpReview) => {
       state.review = tmpReview
@@ -172,10 +172,11 @@ export default {
           method: 'get',
           headers: getters.authHeader,
         })
-          .then(res => commit('SET_REVIEWS', res.data))
+        .then(res => commit('SET_REVIEWS', res.data))
       },
-    
+      
       fetchReview ({ commit, getters }, reviewPk) {
+        console.log('리뷰 불러옴!')
         axios({
           url: drf.community.review(reviewPk),
           method: 'get',

@@ -5,7 +5,8 @@
         <img class="profile" :src= "`http://127.0.0.1:8000${ profile.profile_img }`" alt="profile_img">
         </div>
       <div class="col-8 col-offset-1">
-        <h1>{{ profile.nickname }}</h1>
+        <h1 v-if="profile.nickname">{{ profile.nickname }}</h1>
+        <h1 v-else>{{ profile.username }}</h1>
         <h4>followers: {{ followersCount }} | followings: {{ followingsCount }}</h4>
         <p>{{ profile.introduce }}</p>
       </div>
