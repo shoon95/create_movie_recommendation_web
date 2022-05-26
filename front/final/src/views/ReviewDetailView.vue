@@ -30,13 +30,19 @@
 
     <!-- ReviewCreate -->
     <div v-if="!review">
+      <div class="search">
+        <searchBar @sendMovie="getMovieData" />
+        <h3 class="movie-title">{{ movieDetail.title }}</h3>
+      </div>
       <div>
-        <label for="title">title: </label>
+        title: <br>
+        <label for="title"> </label>
         <input type="text" v-model="newReview.title">
         
       </div>
       <div>
-        <label for="content">content: </label>
+        content: <br>
+        <label for="content"> </label>
         <textarea v-model="newReview.content" type="text" id="content"></textarea>
       </div>
       <div>
@@ -44,9 +50,7 @@
         <input v-model="newReview.score" type="range" name="score" min='0' max='5' step='0.5' oninput="document.getElementById('score').innerHTML=this.value;"/>
         <span id="score"></span>
       </div>
-      <div>
-        <searchBar @sendMovie="getMovieData" />
-      </div>
+      
       <div>
         <button @click="[createReview(newReview)]">제출</button>
         <button @click="changeIsEdit">취소</button>
@@ -109,7 +113,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['comment_set','review', 'isReviewer', 'currentUser', 'isAuthor']),
+    ...mapGetters(['comment_set','review', 'isReviewer', 'currentUser', 'isAuthor', 'movieDetail']),
     likeCount() {
       return this.review.like_users?.length
     },
@@ -166,6 +170,12 @@ export default {
 </script>
 
 <style scoped>
+
+  .movie-title {
+    text-align: left;
+    padding-left: 4%;
+  }
+
   .name {
     font-size: 13px;
   }

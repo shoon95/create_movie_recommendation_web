@@ -1,7 +1,9 @@
 <template>
   <div class="d-flex m-0 justify-content-between" id="nav">
     <div class="m-2 d-flex p-0 align-items-center">
-      <router-link :to="{name:'community'}" class="text-decoration-none"><h2 id="logo">Muzul</h2></router-link>
+      <!-- <router-link :to="{name:'community'}" class="text-decoration-none"><h2 id="logo">Muzul</h2></router-link> -->
+      <router-link :to="{name:'community'}"
+        ><img src='@/assets/name.png' id="logo"  alt=""></router-link>
       <SearchBar />
     </div>
     <div class="m-2 d-flex align-items-center" >
@@ -63,5 +65,10 @@ export default {
 
   #nav {
     background-color: rgb(21, 29, 37);
+  }
+
+  #logo {
+    width: 100px;
+    /* box-shadow: 0px 0px 3px 1px; */
   }
 </style>
