@@ -7,7 +7,7 @@
             <h4 class="title">새 리뷰 작성하기</h4>
             <p class="copy">리뷰란 무엇인가</p>
 
-            <button class="btn" @click="isModalView([true,review])">Open</button>
+            <button class="btn" @click="isModalView([true, 'create'])">Open</button>
 
           </div>
         </div>

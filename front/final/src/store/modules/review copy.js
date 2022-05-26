@@ -17,6 +17,10 @@ export default {
   mutations: {
     SET_REVIEWS: (state, tmpReviews) => state.rmpReviews = tmpReviews,
     SET_REVIEW: (state, tmpReview) => state.tmpReview = tmpReview,
+    CREATE_REVIEW: (state, tmpReview) => {
+      state.review = tmpReview
+      console.log(state.review)
+    }
   },
 
   actions: {
@@ -42,38 +46,36 @@ export default {
           }
         })
     },
-    createReview({ commit, getters }, review) {
+    createReview({ commit, getters }, {title,content,score,movie}) {
       axios({
         url: drf.community.community(),
         method: 'post',
-        data: review,
+        data: {title,content,score,movie},
         headers: getters.authHeader,
       })
       .then(res => {
-        commit('SET_REVIEW', res.data)
-        router.push({
-          name: 'review',
-          params: { reviewPk: getters.tmpReview.pk }
-        })
+        commit('CREATE_REVIEW', res.data)
       })
     },
 
-    updateReview({ commit, getters }, { pk, title, content }) {
+    updateReview({ commit, getters }, { pk, title, content, score, movie }) {
+      console.log(pk)
+      console.log(title)
+      console.log(content)
+      console.log(score)
+      console.log
     // updateReview({ commit, getters }, { review }) {
       // console.log(review.id)
       axios({
         url: drf.community.review(pk),
         method: 'put',
-        data: { title, content },
+        data: { title, content,score, movie },
         headers: getters.authHeader,
       })
-        .then(res => {
+        .then( res =>
           commit('SET_REVIEW', res.data)
-          router.push({
-            name: 'review',
-            params: { reviewPk: getters.tmpReview.pk }
-          })
-        })
+        )
+        
     },
 
     likeReview({ commit, getters }, review) {
