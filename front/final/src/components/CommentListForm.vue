@@ -39,7 +39,8 @@ export default {
 #comment {
   background-color: rgb(248, 248, 248);
   border: 2px solid rgb(0, 0, 255,0.5);
-  height: 27px;
+  height: 25px;
+  width: 80%;
 }
 /* class="button" style="margin-left:5px; height:27px; width:50px;" */
 .butt {
