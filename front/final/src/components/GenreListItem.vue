@@ -27,15 +27,15 @@ export default {
     line-height: 30px;
   }
   .notSelected {
-    background-color: rgba(229, 236, 247, 1);
-    border-color: rgba(229, 236, 247, 1);
+    background-color: rgb(255, 255, 255);
+    border-color: rgb(255, 255, 255);
     box-shadow: 1px 1px 3px 0px;
   }
 
   .isSelected {
 
-    background-color: rgb(13, 110, 253);
-    border-color: rgba(13, 110, 253);
+    background-color: #2c3e50;
+    border-color: #2c3e50;
     color: rgba(255, 255, 255, 0.7);
     box-shadow: 1px -1px 3px 0px;
 

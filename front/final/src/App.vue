@@ -32,7 +32,6 @@
 #app {
   text-align: center;
   font-family: 'HallymMjo-Regular';
-
 }
 
 nav a {

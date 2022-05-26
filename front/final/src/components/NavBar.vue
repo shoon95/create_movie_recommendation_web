@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex m-0 justify-content-between">
+  <div class="d-flex m-0 justify-content-between" id="nav">
     <div class="m-2 d-flex p-0 align-items-center">
       <router-link :to="{name:'community'}" class="text-decoration-none"><h2 id="logo">Muzul</h2></router-link>
       <SearchBar />
@@ -58,5 +58,10 @@ export default {
   } */
   h2 {
     font-family: 'KOTRA_BOLD-Bold';
+    color: white;
+  }
+
+  #nav {
+    background-color: rgb(21, 29, 37);
   }
 </style>

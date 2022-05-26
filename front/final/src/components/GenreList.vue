@@ -1,5 +1,5 @@
 <template>
-  <div class="genre d-flex flex-wrap justify-content-between mb-3 mx-3">
+  <div class="genre d-flex flex-wrap justify-content-between mb-3 mx-3 mt-0">
     <GenreListItem v-for="genre in genreItems" :key="genre.id" :genre="genre" />
   </div>
 </template>

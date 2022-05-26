@@ -1,15 +1,15 @@
 <template>
   <div>
     <div>
-      <GenreList />
-    </div>
-    <div>
       <ModalView class="fixed-top mt-4" style=" min-width: 1100px; " v-if="isModalViewed" @close-modal="isModalView(false)">
         <ReviewDetailView />
       </ModalView>
     </div>
     <div class="second-div">
       <CommunityMovieList v-if="isMovies" />
+    </div>
+    <div>
+      <GenreList />
     </div>
     <div>
       <ReviewCardList v-if="isMovies"/>
