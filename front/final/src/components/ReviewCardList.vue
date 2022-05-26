@@ -2,7 +2,7 @@
   <div class="row card-container">
     <div class="col col-3">
       <main class="page-content">
-        <div class="card" :style="{backgroundImage:src}">
+        <div class="card" :style="{backgroundImage: 'url(https://image.ajunews.com/content/image/2020/07/31/20200731112823359811.jpg)'}">
           <div class="content">
             <h4 class="title">새 리뷰 작성하기</h4>
             <p class="copy">리뷰란 무엇인가</p>

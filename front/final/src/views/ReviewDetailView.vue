@@ -20,7 +20,7 @@
 
         </div>
       </div>
-      <button class="like" @click="likeReview(review)">like {{ likeCount  }}</button><br>
+      <button class="tweet-heart" id="like" @click="likeReview(review)">{{ likeCount }}</button><br>
       생성 : {{ review.created_at | formatDate }} | 수정 : {{ review.updated_at | formatDate }}
       <div>
         <CommentList :comment_set="comment_set"/>
@@ -164,7 +164,14 @@ export default {
     if (this.review) {
       this.fetchReview(this.review.id)
     } 
-  }
+  },
+
+  mounted () {
+    const $like = document.getElementById('like')
+    $like.addEventListener('click', () => {
+    $like.classList.toggle('is-liked')
+    })
+  },
 }
 
 </script>
@@ -209,6 +216,32 @@ export default {
 	margin-left:5px;
 	/* margin-bottom: 9px; */
 	padding-bottom: 5px;
+}
+
+.tweet-heart {
+  background-color: transparent;
+  background-image: url("https://abs.twimg.com/a/1492302959/img/animations/web_heart_animation.png");
+  border: none;
+  cursor: pointer;
+  height: 100px;
+  outline: none;
+  width: 100px;
+  transition: all ease-out 800ms;
+}
+.tweet-heart.is-liked {
+  animation-name: like;
+  animation-duration: 800ms;
+  animation-timing-function: steps(28);
+  animation-fill-mode: forwards;
+}
+
+@keyframes like {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: right;
+  }
 }
 
 </style>

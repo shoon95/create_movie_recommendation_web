@@ -13,7 +13,7 @@ export default ({
     movies: [],
     showMovies: {},
     movieDetail: {},
-    isLike: '',
+    isLike: false,
     genreItems: [],
     selectedGenres: [],
   },
@@ -135,7 +135,8 @@ export default ({
       if (getters.isLoggedIn) {
         var flag = 0
         for( let i of getters.movieDetail.like_users ) {
-          if ( i === getters.currentUser.pk) {
+          if ( i.id === getters.currentUser.pk) {
+            console.log(i.id)
             flag = 1
             break
           }

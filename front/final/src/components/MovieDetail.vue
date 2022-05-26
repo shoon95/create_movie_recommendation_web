@@ -18,8 +18,7 @@
         </div><br><br>
         <p class="overview"> {{ movieDetail.overview }} </p>
       </div>
-      <button v-if="isLike" @click="changeIsLike(moviePk)">좋아요 상태</button>
-      <button v-else @click="changeIsLike(moviePk)">비좋아요 상태</button>
+      <button class="tweet-heart" id="like" @click="changeIsLike(moviePk)"></button>
     </div>
     <div class="container justify-content-center d-flex" id="actors">
       <div class="actors me-2" v-for="actor in movieDetail.actors.slice(0, 10)" :key="actor.id">
@@ -57,6 +56,18 @@ export default {
 
   created () {
     this.showLike()
+  },
+
+  mounted () {
+    if (this.isLike) {
+      const $like = document.getElementById('like')
+      $like.classList.toggle('is-liked')
+    }
+
+    const $like = document.getElementById('like')
+    $like.addEventListener('click', () => {
+    $like.classList.toggle('is-liked')
+    })
   },
 
   destroyed() {
@@ -124,6 +135,30 @@ export default {
     border-radius: 5%;
   }
 
+  .tweet-heart {
+    background-color: transparent;
+    background-image: url("https://abs.twimg.com/a/1492302959/img/animations/web_heart_animation.png");
+    border: none;
+    cursor: pointer;
+    height: 100px;
+    outline: none;
+    width: 100px;
+    transition: all ease-out 800ms;
+  }
+  .tweet-heart.is-liked {
+    animation-name: like;
+    animation-duration: 800ms;
+    animation-timing-function: steps(28);
+    animation-fill-mode: forwards;
+  }
 
+  @keyframes like {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: right;
+    }
+  }
 
 </style>
