@@ -24,7 +24,14 @@ class MovieDetailSerializer(serializers.ModelSerializer):
         class Meta:
             model = Video
             fields = ('youtube_key', )
-    
+    class ReviewSerializer(serializers.ModelSerializer):
+
+        class Meta:
+            model = Review
+            fields = ('__all__')
+            depth = 1
+
+    reviews = ReviewSerializer(many=True, read_only=True)    
     genres = GenreSerializer(many=True, read_only=True)
     videos = VideoSerializer(read_only=True)
 

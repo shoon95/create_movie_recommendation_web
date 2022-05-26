@@ -28,6 +28,7 @@ class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
         fields = ('__all__')
+        depth=1
         
 
 
@@ -51,5 +52,6 @@ class ReviewListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
         fields = ('__all__')
+        depth=1
         # depth = 1
 # 'comment_count',

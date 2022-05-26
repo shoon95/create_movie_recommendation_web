@@ -46,21 +46,21 @@ def reviews_of_movie (request, movie_pk):
  
 @api_view(['GET', 'PUT', 'DELETE'])
 def review_detail_or_update_or_delete(request, review_pk):
-    review = get_object_or_404(Review, pk=review_pk)
+    reviews = get_object_or_404(Review, pk=review_pk)
 
     def review_detail():
         reviews = Review.objects.filter(pk=review_pk).annotate(
             # comment_count=Count('comments', distinct=True),
             like_count=Count('like_users', distinct=True)
         ).order_by('-pk')
-        serializer = ReviewSerializer(review)
+        serializer = ReviewListSerializer(reviews, many=True)
         return Response(serializer.data)
 
     def update_review():
-        if request.user == review.user:
-            print(review)
+        if request.user == reviews.user:
+            print(reviews)
             print(1)
-            serializer = ReviewSerializer(instance=review, data=request.data)
+            serializer = ReviewListSerializer(instance=reviews, data=request.data)
             print(2)
             if serializer.is_valid(raise_exception=True):
                 print(3)
@@ -69,17 +69,17 @@ def review_detail_or_update_or_delete(request, review_pk):
                 return Response(serializer.data)
 
     def delete_review():
-        if request.user == review.user:
-            review.delete()
+        if request.user == reviews.user:
+            reviews.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
 
     if request.method == 'GET':
         return review_detail()
     elif request.method == 'PUT':
-        if request.user == review.user:
+        if request.user == reviews.user:
             return update_review()
     elif request.method == 'DELETE':
-        if request.user == review.user:
+        if request.user == reviews.user:
             return delete_review()
 
 
