@@ -1,7 +1,7 @@
 <template>
   <div id="hero-section">
     <div class="card-grid">
-        <div class="card" v-for="review in tmpReviews" :key="review.id">
+        <div class="card" v-for="review in tmpReviews" :key="review.id" @click="isModalView([true,review])">
           <div class="card__background" :style="{backgroundImage: `url(${`https://www.themoviedb.org/t/p/original/${review.movie.poster_path}`})`}" ></div>
           <div class="card__content">
             <p class="card__heading text-white">{{ review.title }}</p>
@@ -25,7 +25,7 @@ export default {
     ...mapGetters(['movieReviews', 'tmpReviews'])
   },
   methods: {
-    ...mapActions(['fetchReviews']),
+    ...mapActions(['fetchReviews','isModalView']),
   },
   created() {
     this.fetchReviews()

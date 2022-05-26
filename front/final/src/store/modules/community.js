@@ -190,6 +190,10 @@ export default {
       },
     
       createReview({ commit, getters }, {title,content,score,movie}) {
+        console.log(title)
+        console.log(content)
+        console.log(score)
+        console.log(title)
         axios({
           url: drf.community.community(),
           method: 'post',
@@ -206,7 +210,7 @@ export default {
         console.log(title)
         console.log(content)
         console.log(score)
-        console.log
+        console.log(movie)
       // updateReview({ commit, getters }, { review }) {
         // console.log(review.id)
         axios({
