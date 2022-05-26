@@ -30,20 +30,21 @@ export default {
   }
   
   .overlay{
-    opacity: 0.5;
+    opacity: 0.8;
     background-color:black;
   }
 
   .modal-card{
     position: relative;
-    max-width: 50%;
+    max-width: 30%;
     margin: auto;
-    margin-top: 30px;
+    margin-top: 150px;
     padding: 20px;
-    background-color: rgb(243, 237, 237);
+    background-color: rgb(255, 255, 255);
     border-radius: 15px;
     /* box-shadow: 1px 1px 3px 0px; */
-    min-height: 800px;
+    min-height: 500px;
+    max-height: 500px;
     z-index: 100;
     opacity: 1;
   }

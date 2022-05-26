@@ -61,8 +61,8 @@ export default {
 
 <style scoped>
   .second-div {
-    border: solid;
-    height: 700px;
+    /* border: solid; */
+    height: 705px;
   }
 
 </style>

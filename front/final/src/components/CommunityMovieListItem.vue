@@ -8,6 +8,8 @@
     <div class="container">
       <div class="carousel-caption text-start">
         <h1>{{ movie.title }}</h1>
+        <p>{{ movie.overview }}</p>
+        <button class="btn btn-primary">상세보기</button>
         <p>&nbsp;</p>
         <!-- <p>&nbsp;</p> -->
         

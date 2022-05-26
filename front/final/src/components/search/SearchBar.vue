@@ -52,6 +52,7 @@ export default {
             this.movie = i
           }
         }
+        this.$emit('sendMovie',this.movie)
         this.$router.push({name:'movie', params:{moviePk:`${this.movie.id}`}})
         this.query=''
         this.movie=''

@@ -1,5 +1,5 @@
 <template>
-  <div style="overflow:scroll; width:100%;  height:800px;">
+  <div style="overflow:scroll; width:100%;  height:100%;">
     <div class="row">
       <aside class="col col-3">
         <img :src= "`http://127.0.0.1:8000${ review.user.profile_img }`" alt="" style="width:100px; height:100px; border-radius:100%;">

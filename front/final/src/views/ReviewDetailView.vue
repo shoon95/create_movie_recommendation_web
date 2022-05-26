@@ -1,14 +1,18 @@
 <template>
-  <div style="overflow:scroll; width:100%;  height:800px;">
+  <div class="back" style="overflow:scroll; width:100%;  height:480px"  >
     <!-- reviewDetail -->
 
-    <div v-if="review && isEditValue">
-      
-      <div class="row">
+    <div v-if="review && isEditValue" >
+
+      <!-- <img :src="`https://www.themoviedb.org/t/p/original/${ review.movie.poster_path }`" alt=""> -->
+
+      <div class="row" >
         <aside class="col col-3">
           <img :src= "`http://127.0.0.1:8000${ review.user.profile_img }`" alt="" style="width:100px; height:100px; border-radius:100%;">
+          <!-- <img :src="`https://www.themoviedb.org/t/p/original/${ review.movie.poster_path }`" alt="" class="poster shadow"> -->
         </aside>
-        <div class="col">
+
+        <div class="col" >
           <div v-if="review.user.username===currentUser.username">
             <button @click="[deleteReview(review), isModalView(false)]">삭제</button> | 
             <button @click="changeIsEdit">업데이트</button>
@@ -48,10 +52,8 @@
         <span id="score"></span>
       </div>
       <div>
-        <label for="movie">movie: </label>
-        <input v-model="newReview.movie" type="number" id="movie" />
+        <searchBar @sendMovie="getMovieData" />
       </div>
-
       <div>
         <button @click="[createReview(newReview)]">제출</button>
         <button @click="changeIsEdit">취소</button>
@@ -88,6 +90,7 @@
 
 <script>
 import CommentList from '@/components/CommentList.vue'
+import searchBar from '@/components/search/SearchBar.vue'
 
 
 import { mapGetters, mapActions } from 'vuex'
@@ -95,12 +98,13 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'ReviewDetailView',
   components: {
-    CommentList,
+    CommentList, searchBar,
   },
 
   data() {
     return{
       isEdit: true,
+      movie: '',
       newReview: {
           pk: '',
           title: '',
@@ -135,7 +139,12 @@ export default {
     ...mapActions(['isModalView','deleteReview', 'likeReview', 'fetchReview','updateReview','createReview']),
     changeIsEdit () {
       this.isEdit= !this.isEdit
+    },
+    getMovieData (data) {
+      this.movie = data
+      this.newReview.movie = data.id
     }
+
   },
 
   created() {
@@ -148,5 +157,10 @@ export default {
 </script>
 
 <style scoped>
-  
+  .poster {
+    width: 300px;
+    height: 450px;
+    border-radius: 10px;
+  }
+
 </style>
