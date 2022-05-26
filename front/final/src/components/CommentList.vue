@@ -1,13 +1,13 @@
 <template>
   <div class="comment-list">
     <comment-list-form></comment-list-form>
-    <ul>
-      <comment-list-item 
-        v-for="comment in comment_set" 
-        :comment="comment" 
-        :key="comment.pk">
-      </comment-list-item>        
-    </ul>
+
+    <comment-list-item 
+      v-for="comment in comment_set" 
+      :comment="comment" 
+      :key="comment.pk">
+    </comment-list-item>        
+
   </div>
 </template>
 
