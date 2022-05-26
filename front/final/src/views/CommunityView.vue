@@ -1,5 +1,6 @@
 <template>
   <div>
+    
     <div>
       <GenreList />
     </div>
@@ -24,6 +25,7 @@
   import ReviewDetailView from '@/views/ReviewDetailView.vue'
   import ModalView from '@/views/ModalView.vue'
   import { mapGetters, mapActions } from 'vuex'
+  
 
 export default {
   name: 'CommunityView',
@@ -52,10 +54,9 @@ export default {
     },deep:true,
     movies ( movie ) {
       this.getMoviesReviews(movie)
-    }
+    },
 
-  }
-  
+  },
 }
 </script>
 

@@ -7,12 +7,18 @@
       <div class="comment-box">
         <div class="comment-head">
           <h6 class="comment-name ">{{ comment.user.username }}</h6>
-          <span>{{ comment.created_at }}</span>
-          <button v-if="currentUser.username === comment.user.username && !isEditing" @click="switchIsEditing">Edit</button> 
-          <button v-if="currentUser.username === comment.user.username && !isEditing" @click="deleteComment(payload)">Delete</button>
+          <span>{{ comment.created_at | formatDate }}</span>
+					
+					<div class="imgs">
+						<img src="@/assets/edit.png" v-if="currentUser.username === comment.user.username && !isEditing" class="edit" @click="switchIsEditing" alt="">
+					<img v-if="currentUser.username === comment.user.username && !isEditing" @click="deleteComment(payload)" class="trash" src="@/assets/trash.png" alt="">
+					</div>
+					
+					<br>
+					<div class="comment-contents">{{ payload.content }}</div>
         </div>
-        <div class="comment-content">
-          {{ payload.content }}
+        <div>
+          
         </div>
       </div>    
     </span>
@@ -20,10 +26,13 @@
     <span v-if="isEditing">
       <div class="comment-box">
         <div class="comment-head">
-          <h6 class="comment-name by-author"><a href="http://creaticode.com/blog">Agustin Ortiz</a></h6>
+          <h6 class="comment-name ">{{ comment.user.username }}</h6>
           <span>{{ comment.updated_at }}</span>
-          <button @click="onUpdate">Update</button> |
-          <button @click="switchIsEditing">Cancle</button>
+				<div class="imgs">
+					<img src="@/assets/check.png" @click="onUpdate" class="update" alt="">
+					<img src="@/assets/close.png" @click="switchIsEditing" class="cancel" alt="">
+				</div>
+          
 
         </div>
         <div class="comment-content">
@@ -36,6 +45,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import { formatDate } from '@/common/date.js'
 
 export default {
   name: 'CommentListItem',
@@ -63,11 +73,65 @@ export default {
       this.isEditing = false
     }
   },
+	filters: {
+		formatDate(time) {
+    var date = new Date(time);
+    return formatDate(date, 'yyyy.MM.dd'); 
+   }
+	}
 
 }
 </script>
 
 <style scoped>
+
+.imgs {
+	position:absolute;
+	/* left:100px; */
+	right: -190%;
+}
+
+.comment-contents {
+	font-size: 13px;
+}
+
+.cancel {
+	height: 2%;
+	width: 2%;
+	cursor: pointer;
+	margin-left:5px;
+	/* margin-bottom: 9px; */
+	padding-bottom: 5px;
+}
+
+.update {
+	height: 2%;
+	width: 2%;
+	cursor: pointer;
+	margin-left:5px;
+	/* margin-bottom: 9px; */
+	padding-bottom: 5px;
+	margin-left: 65px;
+}
+
+.edit {
+	height: 2%;
+	width: 2%;
+	cursor: pointer;
+	margin-left:5px;
+	/* margin-bottom: 9px; */
+	padding-bottom: 5px;
+	margin-left: 65px;
+}
+.trash {
+	height: 2%;
+	width: 2%;
+	cursor: pointer;
+	margin-left:5px;
+	/* margin-bottom: 9px; */
+	padding-bottom: 5px;
+}
+
 .comment {
   text-align:left;
 }
@@ -253,6 +317,7 @@ body {
 	width: 610px;
 }
 .comment-box .comment-head {
+	position: relative;
 	background: #FCFCFC;
 	padding: 10px 12px;
 	border-bottom: 1px solid #E5E5E5;

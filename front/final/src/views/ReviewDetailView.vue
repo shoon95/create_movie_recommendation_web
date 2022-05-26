@@ -1,34 +1,27 @@
 <template>
   <div class="back" style="overflow:scroll; width:100%;  height:480px"  >
     <!-- reviewDetail -->
-
+    
     <div v-if="review && isEditValue" >
+      <h3 class="card-title" >{{ review.movie.title }}</h3>
+      
+      <img :src= "`http://127.0.0.1:8000${ review.user.profile_img }`" alt="" style="width:75px; height:75px; border-radius:100%;">
+      <div class="name">{{ review.user.nickname }}</div>
 
-      <!-- <img :src="`https://www.themoviedb.org/t/p/original/${ review.movie.poster_path }`" alt=""> -->
+      <div >
+        <h2 class="mt-3">{{ review.title }}</h2>
+        <h4>{{ review.content }}</h4>
+      </div>
+            
+      <div class="context" >   
+        <div v-if="review.user.username===currentUser.username">
+          <img src="@/assets/edit.png"  class="edit" @click="changeIsEdit" alt="">
+          <img @click="[deleteReview(review), isModalView(false)]" class="trash" src="@/assets/trash.png" alt="">
 
-      <div class="row" >
-        <aside class="col col-3">
-          <img :src= "`http://127.0.0.1:8000${ review.user.profile_img }`" alt="" style="width:100px; height:100px; border-radius:100%;">
-          <!-- <img :src="`https://www.themoviedb.org/t/p/original/${ review.movie.poster_path }`" alt="" class="poster shadow"> -->
-        </aside>
-
-        <div class="col" >
-          <div v-if="review.user.username===currentUser.username">
-            <button @click="[deleteReview(review), isModalView(false)]">삭제</button> | 
-            <button @click="changeIsEdit">업데이트</button>
-          </div>
-          
-          <h1>{{ review.title }}</h1>
-          <div class="content">
-            {{ review.content }} <br>
-            {{ review.user.username }} <br>
-            {{ review.created_at }}<br>
-            {{ review.updated_at }}<br>
-            {{ review.user.nickname }}<br>
-            <button @click="likeReview(review)">like {{ likeCount  }}</button>
-          </div>
         </div>
       </div>
+      <button class="like" @click="likeReview(review)">like {{ likeCount  }}</button><br>
+      생성 : {{ review.created_at | formatDate }} | 수정 : {{ review.updated_at | formatDate }}
       <div>
         <CommentList :comment_set="comment_set"/>
       </div>
@@ -91,7 +84,7 @@
 <script>
 import CommentList from '@/components/CommentList.vue'
 import searchBar from '@/components/search/SearchBar.vue'
-
+import { formatDate } from '@/common/date.js'
 
 import { mapGetters, mapActions } from 'vuex'
 
@@ -142,9 +135,25 @@ export default {
     },
     getMovieData (data) {
       this.movie = data
+      console.log(data)
+      console.log(data.id)
       this.newReview.movie = data.id
     }
 
+  },
+  filters: {
+    formatDate(time) {
+    var date = new Date(time);
+    return formatDate(date, 'yyyy.MM.dd'); 
+   },
+   formatDate2(time) {
+    var date = new Date(time);
+    return formatDate(date, 'hh:mm:ss'); 
+   },
+   formatDate3(time) {
+    var date = new Date(time);
+    return formatDate(date, 'yyyy MM dd  hh:mm:ss'); 
+   }
   },
 
   created() {
@@ -157,10 +166,39 @@ export default {
 </script>
 
 <style scoped>
+  .name {
+    font-size: 13px;
+  }
+  .context {
+    position: relative;
+    right: -170px;
+    top: -170px;
+  }
   .poster {
     width: 300px;
     height: 450px;
     border-radius: 10px;
   }
+  .card-title {
+    border: solid 
+  }
+
+  .edit {
+	height: 5%;
+	width: 5%;
+	cursor: pointer;
+	margin-left:5px;
+	/* margin-bottom: 9px; */
+	padding-bottom: 5px;
+	margin-left: 65px;
+}
+.trash {
+	height: 5%;
+	width: 5%;
+	cursor: pointer;
+	margin-left:5px;
+	/* margin-bottom: 9px; */
+	padding-bottom: 5px;
+}
 
 </style>
