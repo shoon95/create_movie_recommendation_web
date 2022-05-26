@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from .models import Review, Comment
 from .serializers.review import ReviewListSerializer, ReviewSerializer
 from .serializers.comment import CommentSerializer
-
+from movies.models import Movie
 
 @api_view(['GET', 'POST'])
 def review_list_or_create(request):
@@ -22,10 +22,11 @@ def review_list_or_create(request):
         return Response(serializer.data)
     
     def create_review():
-        print(request.data)
+        data = request.data       
+        movie = Movie.objects.get(pk=data['movie'])
         serializer = ReviewSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
-            serializer.save(user=request.user)
+            serializer.save(user=request.user, movie=movie)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     if request.method == 'GET':
@@ -58,10 +59,11 @@ def review_detail_or_update_or_delete(request, review_pk):
 
     def update_review():
         if request.user == reviews.user:
+            print(request.data)
             print(reviews)
             print(1)
-            serializer = ReviewListSerializer(instance=reviews, data=request.data)
-            print(2)
+            serializer = ReviewSerializer(instance=reviews, data=request.data)
+
             if serializer.is_valid(raise_exception=True):
                 print(3)
                 serializer.save()
