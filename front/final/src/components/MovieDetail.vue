@@ -2,19 +2,26 @@
   <div >
     <div class="first_div">
       <video class="video" :src="src" autoplay="1"  loop="1"></video>
-      <div class="content">
-        <p class="title"> {{ movieDetail.title }} </p>
-        <p class="genres"> {{ movieDetail.genres }} </p>
+      <div class="container content justify-content-start">
+        <p><span class="title"> {{ movieDetail.title }} </span>
+        <span class="score rounded-2 bg-warning p-2 bg-opacity-75"> {{ movieDetail.vote_average }} </span></p>
+        <p class="releaseDate">개봉일: {{ movieDetail.release_date }} </p>
+        <!-- <ul>
+          <li v-for="genre in movieDetail.genres" :key="genre">
+          {{ genre.name }}
+          </li>
+        </ul><br><br> -->
+        <div class="d-flex">
+          <div class="rounded-2 bg-danger bg-opacity-50" v-for="genre in movieDetail.genres" :key="genre" id="genre">
+          {{ genre.name }}
+          </div>
+        </div><br><br>
         <p class="overview"> {{ movieDetail.overview }} </p>
-        <p class="releaseDate"> {{ movieDetail.release_date }} </p>
-        <p class="actors"> {{ movieDetail.actors }} </p>
-        <p class="score"> {{ movieDetail.vote_average }} </p>
       </div>
       <button v-if="isLike" @click="changeIsLike(moviePk)">좋아요 상태</button>
       <button v-else @click="changeIsLike(moviePk)">비좋아요 상태</button>
-      
     </div>
-  
+    <p class="actors"> {{ movieDetail.actors }} </p>
     
   </div>
 
@@ -69,7 +76,7 @@ export default {
   .content {
     position: absolute;
     left : 5%;
-    bottom: 35%;
+    bottom: 15%;
     color: white;
     text-decoration-style: solid; 
   }
@@ -82,6 +89,30 @@ export default {
     position: absolute;
     top: 15%;
     right: 5%;
+  }
+
+  p {
+    text-align: left;
+    font-size: 1.2vw;
+  }
+
+  #genre {
+    margin-right: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+
+  ul {
+    list-style: none;
+    margin-left: 0px;
+  }
+
+  li {
+    float: left;
+    
+
+
   }
 
 </style>
