@@ -5,6 +5,7 @@ from django.shortcuts import get_list_or_404, get_object_or_404
 from .serializers import GenreListSerializer, MovieListSerializer, MovieDetailSerializer, MovieSearchSerializer
 from .models import Movie, Genre, Video, Actor
 import requests
+import pytube
 
 @api_view(['GET'])
 def get_data(request):
@@ -32,7 +33,7 @@ def get_data(request):
         'id','title','release_date','popularity','vote_count','vote_average','overview','poster_path','backdrop_path',
     ]
 
-    for page in range(1,3):
+    for page in range(1,20):
         base_url = 'https://api.themoviedb.org/3'
         path = '/movie/popular'
 
@@ -57,6 +58,8 @@ def get_data(request):
             result = data.get('results')
 
             i = 0
+            if (len(result)==0):
+                continue
             for item in result:
                 video = {}
                 video['youtube_key'] = item.get('key')
@@ -67,8 +70,11 @@ def get_data(request):
             for field in name: 
                 setattr(movie,field,movie_item.get(field))
             setattr(movie,'videos',video)
-            movie.save()
-                
+
+            try:
+                movie.save()
+            except:
+                continue
             #### 영화 데이터에 장르 추가하기
 
             genre = Genre.objects.filter(pk__in=movie_item.get('genre_ids'))
@@ -246,3 +252,21 @@ def get_genres(request):
     genres = Genre.objects.all()
     serializer = GenreListSerializer(genres, many=True)
     return Response (serializer.data)
+
+@api_view(['GET'])
+def get_videos(request):
+    videos = Video.objects.all()
+    print(videos[0].youtube_key)
+    check=1
+    for i in videos:
+        try:
+            key = i.youtube_key
+            yt = pytube.YouTube(f'https://www.youtube.com/watch?v={key}')
+            yt.streams.filter(adaptive=True, file_extension='mp4', only_video=True).order_by('resolution').desc().first().download('C:/Users/sjhty/Desktop/개인 프로젝트/최종 프로젝트/final-pjt/front/final/src/assets', f'{key}video.mp4')
+            yt.streams.filter(adaptive=True, file_extension='mp4', only_audio=True).order_by('abr').desc().first().download('C:/Users/sjhty/Desktop/개인 프로젝트/최종 프로젝트/final-pjt/front/final/src/assets', f'{key}sound.mp4')
+        except:
+            movie = Movie.objects.filter(videos_id=i.pk)
+            movie.delete()
+        check+=1
+        print(f'{check} / {len(videos)} 다운로드 완료')
+    return Response({'data':'성공'})

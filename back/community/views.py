@@ -58,9 +58,14 @@ def review_detail_or_update_or_delete(request, review_pk):
 
     def update_review():
         if request.user == review.user:
+            print(review)
+            print(1)
             serializer = ReviewSerializer(instance=review, data=request.data)
+            print(2)
             if serializer.is_valid(raise_exception=True):
+                print(3)
                 serializer.save()
+                print(4)
                 return Response(serializer.data)
 
     def delete_review():

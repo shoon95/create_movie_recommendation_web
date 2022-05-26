@@ -9,5 +9,7 @@ urlpatterns = [
     path('get_data/', views.get_data, name='get_data'),
     path('now_playing/', views.now_playing, name='now_playing'),
     path('<int:movie_pk>/like/', views.like_movie),
+    path('get_videos/', views.get_videos),
     path('<str:query>/', views.show_movies, name='show_movies'),
+
 ]
